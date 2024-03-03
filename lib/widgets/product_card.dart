@@ -39,38 +39,40 @@ class ProductCard extends StatelessWidget {
                   ),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(left: 8, right: 8.0),
+              Padding(
+                padding: const EdgeInsets.only(left: 8, right: 8.0),
                 child: ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leadingAndTrailingTextStyle: TextStyle(
+                  leadingAndTrailingTextStyle: const TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 16,
                   ),
-                  leading: Text('Ksh.500'),
+                  leading: const Text('Ksh.500'),
+                  trailing: IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.favorite),
+                  ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.only(right: 8.0),
                 child: ListTile(
                   contentPadding: EdgeInsets.zero,
-                  leading: IconButton(
-                    style: IconButton.styleFrom(
-                      backgroundColor: Colors.black,
-                    ),
-                    color: Colors.white,
-                    hoverColor: Colors.orange,
-                    onPressed: () {},
-                    icon: const Icon(Icons.shopping_cart),
-                  ),
-                  trailing: ElevatedButton(
+                  title: ElevatedButton(
                       onPressed: () {},
                       style: ElevatedButton.styleFrom(
                           backgroundColor:
                               Theme.of(context).colorScheme.primary),
-                      child: Text('Buy Now',
-                          style: TextStyle(
-                              color: Theme.of(context).colorScheme.secondary))),
+                      child: Row(
+                        children: [
+                          const Icon(Icons.shopping_cart, color: Colors.white),
+                          const SizedBox(width: 10),
+                          Text('Add to Cart',
+                              style: TextStyle(
+                                  color:
+                                      Theme.of(context).colorScheme.secondary)),
+                        ],
+                      )),
                 ),
               ),
             ],
