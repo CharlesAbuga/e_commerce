@@ -1,5 +1,10 @@
+import 'package:ecommerce_app/Routes/go_router.dart';
+import 'package:ecommerce_app/global_variables.dart';
+import 'package:ecommerce_app/product_class.dart';
 import 'package:ecommerce_app/screens/home_page.dart';
 import 'package:flutter/material.dart';
+import 'package:ecommerce_app/conv.dart';
+import 'package:go_router/go_router.dart';
 
 void main() {
   runApp(const MyApp());
@@ -11,7 +16,8 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
+      routerConfig: AppRouter().router,
       title: 'Flutter Demo',
       theme: ThemeData(
         // This is the theme of your application.
@@ -30,14 +36,11 @@ class MyApp extends StatelessWidget {
         // This works for code too, not just values: Most code changes can be
         // tested with just a hot reload.
         colorScheme: ColorScheme.fromSeed(
-          primary: Colors.black,
-          secondary: Colors.white,
-          seedColor: Colors.black),
+            primary: Colors.black,
+            secondary: Colors.white,
+            seedColor: Colors.black),
         useMaterial3: true,
       ),
-      home: HomePage(),
     );
   }
 }
-
-

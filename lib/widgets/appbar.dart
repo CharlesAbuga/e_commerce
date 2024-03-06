@@ -1,4 +1,6 @@
+import 'package:ecommerce_app/Routes/router_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 class AppBarMain extends StatefulWidget {
   const AppBarMain({super.key});
@@ -32,7 +34,9 @@ class _AppBarMainState extends State<AppBarMain> {
         Padding(
           padding: const EdgeInsets.only(right: 20),
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              GoRouter.of(context).goNamed(RouteConstants.cart);
+            },
             icon: const Icon(Icons.shopping_cart),
           ),
         ),
