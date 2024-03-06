@@ -10,6 +10,9 @@ List<Product> productList = products
         imageUrl: (productData['imageUrl'] as List<dynamic>)
             .map((url) => url.toString())
             .toList(),
+        sizes: (productData['sizes'] as List<dynamic>)
+            .map((url) => url.toString())
+            .toList(),
       ),
     )
     .toList();
