@@ -29,7 +29,7 @@ class ProductCard extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    context.goNamed(RouteConstants.details,
+                    context.pushNamed(RouteConstants.details,
                         pathParameters: {'productId': product.productId},
                         extra: product);
                   },

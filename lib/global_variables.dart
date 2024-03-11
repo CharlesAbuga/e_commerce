@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 final products = [
   {
     'id': '0',
@@ -7,6 +9,7 @@ final products = [
     'imageUrl': ['assets/images/pexels-melvin-buezo-2529148.jpg'],
     'company': 'Nike',
     'sizes': [9, 10, 11, 12],
+    'colors': [Colors.brown, Colors.blue, Colors.grey]
   },
   {
     'id': '1',
@@ -20,6 +23,7 @@ final products = [
     ],
     'company': 'Bata',
     'sizes': [8, 9, 20],
+    'colors': [Colors.brown, Colors.blue, Colors.black]
   },
   {
     'id': '2',
@@ -29,5 +33,6 @@ final products = [
     'imageUrl': ['assets/images/still-life-spring-wardrobe-switch.jpg'],
     'company': 'Nike',
     'sizes': [8, 9, 10],
+    'colors': [Colors.red, Colors.blue, Colors.purple]
   },
 ];

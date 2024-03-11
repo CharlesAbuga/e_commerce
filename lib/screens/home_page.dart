@@ -1,11 +1,9 @@
-import 'package:ecommerce_app/Routes/router_constants.dart';
 import 'package:ecommerce_app/product_class.dart';
 import 'package:ecommerce_app/widgets/appbar.dart';
 import 'package:ecommerce_app/widgets/appbar_small.dart';
 import 'package:ecommerce_app/widgets/carousel.dart';
 import 'package:ecommerce_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key, required this.products});
@@ -24,7 +22,7 @@ class _HomePageState extends State<HomePage> {
       appBar: MediaQuery.of(context).size.width < 800
           ? PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 100),
-              child: AppBarSmall())
+              child: const AppBarSmall())
           : PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 60),
               child: const Center(child: AppBarMain())),

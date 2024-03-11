@@ -5,8 +5,9 @@ class MyCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Text('cart'),
-    );
+    return Scaffold(
+        body: Row(
+      children: [Image.asset('')],
+    ));
   }
 }
