@@ -2,11 +2,20 @@ import 'package:ecommerce_app/Routes/go_router.dart';
 import 'package:ecommerce_app/global_variables.dart';
 import 'package:ecommerce_app/product_class.dart';
 import 'package:ecommerce_app/screens/home_page.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/conv.dart';
 import 'package:go_router/go_router.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: const FirebaseOptions(
+        apiKey: "AIzaSyBv4VMbGf9X3JaYmXgkEZq3Sx54rhiGpL0",
+        appId: "1:1031724627022:web:16730cc69964e285b27f1f",
+        messagingSenderId: "1031724627022",
+        projectId: "ecommerce-3fdff"),
+  );
   runApp(const MyApp());
 }
 
