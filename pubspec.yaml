@@ -40,10 +40,14 @@ dependencies:
   flutter_bloc: ^8.1.4
   bloc: ^8.1.3
   meta: ^1.11.0
+  equatable: ^2.0.5
 
   # Firebase Dependencies
   firebase_auth: ^4.17.9
   firebase_core: ^2.27.1
+
+  user_repository:
+    path: packages/user_repository
 
 
 dev_dependencies:

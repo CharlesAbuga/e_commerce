@@ -1,11 +1,16 @@
 import 'package:ecommerce_app/Routes/go_router.dart';
+import 'package:ecommerce_app/bloc/authentication/authentication_bloc.dart';
 import 'package:ecommerce_app/global_variables.dart';
 import 'package:ecommerce_app/product_class.dart';
 import 'package:ecommerce_app/screens/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:ecommerce_app/conv.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
+import 'package:user_repository/user_repository.dart';
+
+import 'simple_bloc_observer.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -16,40 +21,60 @@ void main() async {
         messagingSenderId: "1031724627022",
         projectId: "ecommerce-3fdff"),
   );
-  runApp(const MyApp());
+  Bloc.observer = SimpleBlocObserver();
+  runApp(MyApp(FirebaseUserRepository()));
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  final UserRepository userRepository;
+  const MyApp(this.userRepository, {super.key});
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp.router(
-      routerConfig: AppRouter().router,
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        // This is the theme of your application.
-        //
-        // TRY THIS: Try running your application with "flutter run". You'll see
-        // the application has a purple toolbar. Then, without quitting the app,
-        // try changing the seedColor in the colorScheme below to Colors.green
-        // and then invoke "hot reload" (save your changes or press the "hot
-        // reload" button in a Flutter-supported IDE, or press "r" if you used
-        // the command line to start the app).
-        //
-        // Notice that the counter didn't reset back to zero; the application
-        // state is not lost during the reload. To reset the state, use hot
-        // restart instead.
-        //
-        // This works for code too, not just values: Most code changes can be
-        // tested with just a hot reload.
-        colorScheme: ColorScheme.fromSeed(
-            primary: Colors.black,
-            secondary: Colors.white,
-            seedColor: Colors.black),
-        useMaterial3: true,
-      ),
-    );
+    return MultiRepositoryProvider(
+        providers: [
+          RepositoryProvider(create: (_) {
+            AuthenticationBloc(myUserRepository: userRepository);
+          })
+        ],
+        child: BlocProvider(
+          create: (context) =>
+              AuthenticationBloc(myUserRepository: userRepository),
+          child: MaterialApp.router(
+            routerConfig: AppRouter().router,
+            title: 'Flutter Demo',
+            theme: ThemeData(
+              // This is the theme of your application.
+              //
+              // TRY THIS: Try running your application with "flutter run". You'll see
+              // the application has a purple toolbar. Then, without quitting the app,
+              // try changing the seedColor in the colorScheme below to Colors.green
+              // and then invoke "hot reload" (save your changes or press the "hot
+              // reload" button in a Flutter-supported IDE, or press "r" if you used
+              // the command line to start the app).
+              //
+              // Notice that the counter didn't reset back to zero; the application
+              // state is not lost during the reload. To reset the state, use hot
+              // restart instead.
+              //
+              // This works for code too, not just values: Most code changes can be
+              // tested with just a hot reload.
+              colorScheme: ColorScheme.fromSeed(
+                primary: Colors.black,
+                onPrimary: Colors.black,
+                secondary: Colors.white,
+                onSecondary: Colors.grey[600],
+                tertiary: Colors.orange,
+                seedColor: Colors.black,
+                background: Colors.white,
+                error: Colors.red,
+                outline: Colors.black,
+                onBackground: Colors.black,
+              ),
+              useMaterial3: true,
+            ),
+          ),
+        ));
   }
 }
