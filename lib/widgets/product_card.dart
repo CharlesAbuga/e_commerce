@@ -1,8 +1,6 @@
 import 'package:ecommerce_app/Routes/router_constants.dart';
 import 'package:ecommerce_app/product_class.dart';
 import 'package:flutter/material.dart';
-import 'package:ecommerce_app/global_variables.dart';
-import 'package:flutter/widgets.dart';
 import 'package:go_router/go_router.dart';
 
 class ProductCard extends StatelessWidget {
@@ -29,7 +27,7 @@ class ProductCard extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    context.pushNamed(RouteConstants.details,
+                    GoRouter.of(context).goNamed(RouteConstants.details,
                         pathParameters: {'productId': product.productId},
                         extra: product);
                   },

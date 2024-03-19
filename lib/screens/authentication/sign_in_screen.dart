@@ -2,9 +2,7 @@ import 'package:ecommerce_app/bloc/sign_in/sign_in_bloc.dart';
 import 'package:ecommerce_app/widgets/strings.dart';
 import 'package:ecommerce_app/widgets/textfield.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignInScreen extends StatefulWidget {

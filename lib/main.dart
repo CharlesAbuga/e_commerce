@@ -1,15 +1,9 @@
 import 'package:ecommerce_app/Routes/go_router.dart';
 import 'package:ecommerce_app/bloc/authentication/authentication_bloc.dart';
-import 'package:ecommerce_app/global_variables.dart';
-import 'package:ecommerce_app/product_class.dart';
-import 'package:ecommerce_app/screens/home_page.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:ecommerce_app/conv.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:go_router/go_router.dart';
 import 'package:user_repository/user_repository.dart';
-
 import 'simple_bloc_observer.dart';
 
 void main() async {

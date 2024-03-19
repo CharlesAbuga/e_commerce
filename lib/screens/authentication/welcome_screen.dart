@@ -3,10 +3,7 @@ import 'package:ecommerce_app/bloc/sign_in/sign_in_bloc.dart';
 import 'package:ecommerce_app/bloc/sign_up/sign_up_bloc.dart';
 import 'package:ecommerce_app/screens/authentication/sign_in_screen.dart';
 import 'package:ecommerce_app/screens/authentication/sign_up_screen.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class WelcomeScreen extends StatefulWidget {
@@ -22,7 +19,6 @@ class _WelcomeScreenState extends State<WelcomeScreen>
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     tabController = TabController(initialIndex: 0, length: 2, vsync: this);
   }
@@ -83,14 +79,14 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                           userRepository: context
                               .read<AuthenticationBloc>()
                               .userRepository),
-                      child: SignInScreen(),
+                      child: const SignInScreen(),
                     ),
                     BlocProvider<SignUpBloc>(
                       create: (context) => SignUpBloc(
                           userRepository: context
                               .read<AuthenticationBloc>()
                               .userRepository),
-                      child: SignUpScreen(),
+                      child: const SignUpScreen(),
                     ),
                   ]),
                 )

@@ -26,7 +26,7 @@ class _ProductDetailState extends State<ProductDetail> {
       appBar: MediaQuery.of(context).size.width < 800
           ? PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 100),
-              child: AppBarSmall())
+              child: const AppBarSmall())
           : PreferredSize(
               preferredSize: Size(MediaQuery.of(context).size.width, 60),
               child: const Center(child: AppBarMain())),
@@ -122,8 +122,8 @@ class _ProductDetailState extends State<ProductDetail> {
                                 ),
                               ),
                               Container(
-                                padding: EdgeInsets.all(8),
-                                margin: EdgeInsets.all(8),
+                                padding: const EdgeInsets.all(8),
+                                margin: const EdgeInsets.all(8),
                                 decoration: BoxDecoration(
                                   color: Colors.black.withOpacity(0.2),
                                   borderRadius: BorderRadius.circular(20),
@@ -421,8 +421,8 @@ class _ProductDetailState extends State<ProductDetail> {
                                     ),
                                   ),
                                   Container(
-                                    padding: EdgeInsets.all(8),
-                                    margin: EdgeInsets.all(8),
+                                    padding: const EdgeInsets.all(8),
+                                    margin: const EdgeInsets.all(8),
                                     decoration: BoxDecoration(
                                       color: Colors.black.withOpacity(0.2),
                                       borderRadius: BorderRadius.circular(20),

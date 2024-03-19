@@ -19,6 +19,6 @@ class MyUserState extends Equatable {
   const MyUserState.failure() : this._(status: MyUserStatus.failure);
 
   @override
-  // TODO: implement props
+  //implement props
   List<Object?> get props => [];
 }

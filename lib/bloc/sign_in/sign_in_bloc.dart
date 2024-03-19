@@ -20,7 +20,7 @@ class SignInBloc extends Bloc<SignInEvent, SignInState> {
         emit(SignInSuccess());
       } catch (e) {
         log(e.toString());
-        emit(SignInFailure());
+        emit(const SignInFailure());
       }
     });
 

@@ -18,7 +18,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int _selectedIndex = 0;
+  // int _selectedIndex = 0;
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<AuthenticationBloc, AuthenticationState>(
@@ -148,7 +148,6 @@ class _HomePageState extends State<HomePage> {
         } else {
           return const WelcomeScreen();
         }
-        ;
       },
     );
   }
