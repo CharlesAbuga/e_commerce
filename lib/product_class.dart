@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+/*import 'package:flutter/material.dart';
 
 class Product {
   final String title;
@@ -15,4 +15,4 @@ class Product {
       required this.title,
       required this.imageUrl,
       required this.price});
-}
+}*/

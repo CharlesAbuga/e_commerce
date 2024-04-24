@@ -1,4 +1,4 @@
-import 'package:ecommerce_app/global_variables.dart';
+/* import 'package:ecommerce_app/global_variables.dart';
 import 'package:ecommerce_app/product_class.dart';
 import 'package:flutter/material.dart';
 
@@ -16,4 +16,4 @@ List<Product> productList = products
               .toList(),
           colors: productData['colors'] as List<Color>),
     )
-    .toList();
+    .toList(); */

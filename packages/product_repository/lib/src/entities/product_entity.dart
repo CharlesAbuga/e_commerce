@@ -48,12 +48,12 @@ class ProductEntity {
       description: doc['description'] as String,
       price: doc['price'] as double,
       category: doc['category'] as String,
-      size: doc['size'] as List<String>,
-      color: doc['color'] as List<String>,
+      size: (doc['size'] as List).cast<String>(),
+      color: (doc['color'] as List).cast<String>(),
       stock: doc['stock'] as int,
       gender: doc['gender'] as String,
       ageGroup: doc['ageGroup'] as String,
-      imageUrl: doc['imageurl'] as List<String>,
+      imageUrl: (doc['imageUrl'] as List).cast<String>(),
     );
   }
 

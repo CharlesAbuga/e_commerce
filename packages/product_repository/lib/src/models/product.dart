@@ -1,17 +1,17 @@
 import 'package:product_repository/src/entities/product_entity.dart';
 
 class Product {
-  final String productId;
-  final String name;
-  final String description;
-  final double price;
-  final String category;
-  final List<String> size;
-  final List<String> color;
-  final int stock;
-  final String ageGroup;
-  final String gender;
-  final List<String> imageUrl;
+  String productId;
+  String name;
+  String description;
+  double price;
+  String category;
+  List<String> size;
+  List<String> color;
+  int stock;
+  String ageGroup;
+  String gender;
+  List<String> imageUrl;
 
   Product({
     required this.productId,

@@ -25,18 +25,22 @@ class CarouselSliderHome extends StatelessWidget {
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.asset(
+                        width: size.width / 1.4,
                         'assets/images/pexels-melvin-buezo-2529148.jpg',
-                        fit: BoxFit.cover),
+                        fit: BoxFit.fitWidth),
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
                     child: Image.asset(
+                        width: size.width / 1.4,
                         'assets/images/still-life-spring-wardrobe-switch.jpg',
                         fit: BoxFit.cover),
                   ),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10),
-                    child: Image.asset('assets/images/jeans.jpeg',
+                    child: Image.asset(
+                        width: size.width / 1.4,
+                        'assets/images/jeans.jpeg',
                         fit: BoxFit.cover),
                   ),
                 ],

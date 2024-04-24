@@ -1,8 +1,11 @@
 import 'package:ecommerce_app/Routes/go_router.dart';
 import 'package:ecommerce_app/bloc/authentication/authentication_bloc.dart';
+import 'package:ecommerce_app/bloc/create_product_bloc/create_product_bloc.dart';
+import 'package:ecommerce_app/bloc/get_product_bloc/get_product_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:product_repository/product_repository.dart';
 import 'package:user_repository/user_repository.dart';
 import 'simple_bloc_observer.dart';
 
@@ -13,6 +16,7 @@ void main() async {
         apiKey: "AIzaSyBv4VMbGf9X3JaYmXgkEZq3Sx54rhiGpL0",
         appId: "1:1031724627022:web:16730cc69964e285b27f1f",
         messagingSenderId: "1031724627022",
+        storageBucket: "ecommerce-3fdff.appspot.com",
         projectId: "ecommerce-3fdff"),
   );
   Bloc.observer = SimpleBlocObserver();
@@ -32,9 +36,22 @@ class MyApp extends StatelessWidget {
             AuthenticationBloc(myUserRepository: userRepository);
           })
         ],
-        child: BlocProvider(
-          create: (context) =>
-              AuthenticationBloc(myUserRepository: userRepository),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) =>
+                  AuthenticationBloc(myUserRepository: userRepository),
+            ),
+            BlocProvider(
+              create: (context) => CreateProductBloc(
+                  productRepository: FirebaseProductRepository()),
+            ),
+            BlocProvider(
+              create: (context) =>
+                  GetProductBloc(productRepository: FirebaseProductRepository())
+                    ..add(GetProduct()),
+            ),
+          ],
           child: MaterialApp.router(
             routerConfig: AppRouter().router,
             title: 'Flutter Demo',
@@ -68,6 +85,7 @@ class MyApp extends StatelessWidget {
               ),
               useMaterial3: true,
             ),
+            debugShowCheckedModeBanner: false,
           ),
         ));
   }
