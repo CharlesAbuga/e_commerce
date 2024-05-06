@@ -1,5 +1,4 @@
 import 'dart:developer';
-import 'dart:io';
 
 import 'package:ecommerce_app/bloc/create_product_bloc/create_product_bloc.dart';
 import 'package:file_picker/file_picker.dart';
@@ -86,7 +85,6 @@ class _AdminScreenState extends State<AdminScreen> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     product = Product.empty;
   }
@@ -103,7 +101,7 @@ class _AdminScreenState extends State<AdminScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width >= 600
                     ? MediaQuery.of(context).size.width * 0.2
                     : MediaQuery.of(context).size.width * 0.9,
@@ -130,7 +128,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
               ),
               const SizedBox(height: 15),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width >= 600
                     ? MediaQuery.of(context).size.width * 0.2
                     : MediaQuery.of(context).size.width * 0.9,
@@ -159,7 +157,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
               ),
               const SizedBox(height: 15),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width >= 600
                     ? MediaQuery.of(context).size.width * 0.2
                     : MediaQuery.of(context).size.width * 0.9,
@@ -190,7 +188,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
               ),
               const SizedBox(height: 15),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width >= 600
                     ? MediaQuery.of(context).size.width * 0.2
                     : MediaQuery.of(context).size.width * 0.9,
@@ -205,7 +203,7 @@ class _AdminScreenState extends State<AdminScreen> {
                     ),
                     const SizedBox(height: 10.0),
                     DropdownButton<String>(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       focusColor: Colors.transparent,
                       borderRadius: BorderRadius.circular(15),
                       iconDisabledColor: Colors.transparent,
@@ -231,7 +229,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
               ),
               const SizedBox(height: 15),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width >= 600
                     ? MediaQuery.of(context).size.width * 0.2
                     : MediaQuery.of(context).size.width * 0.9,
@@ -260,7 +258,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
               ),
               const SizedBox(height: 15),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width >= 600
                     ? MediaQuery.of(context).size.width * 0.2
                     : MediaQuery.of(context).size.width * 0.9,
@@ -289,7 +287,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
               ),
               const SizedBox(height: 15),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width >= 600
                     ? MediaQuery.of(context).size.width * 0.2
                     : MediaQuery.of(context).size.width * 0.9,
@@ -320,7 +318,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
               ),
               const SizedBox(height: 15),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width >= 600
                     ? MediaQuery.of(context).size.width * 0.2
                     : MediaQuery.of(context).size.width * 0.9,
@@ -335,7 +333,7 @@ class _AdminScreenState extends State<AdminScreen> {
                     ),
                     const SizedBox(height: 10.0),
                     DropdownButton<String>(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       focusColor: Colors.transparent,
                       borderRadius: BorderRadius.circular(15),
                       iconDisabledColor: Colors.transparent,
@@ -361,7 +359,7 @@ class _AdminScreenState extends State<AdminScreen> {
                 ),
               ),
               const SizedBox(height: 15),
-              Container(
+              SizedBox(
                 width: MediaQuery.of(context).size.width >= 600
                     ? MediaQuery.of(context).size.width * 0.2
                     : MediaQuery.of(context).size.width * 0.9,
@@ -376,7 +374,7 @@ class _AdminScreenState extends State<AdminScreen> {
                     ),
                     const SizedBox(height: 10.0),
                     DropdownButton<String>(
-                      padding: EdgeInsets.all(10),
+                      padding: const EdgeInsets.all(10),
                       focusColor: Colors.transparent,
                       borderRadius: BorderRadius.circular(15),
                       iconDisabledColor: Colors.transparent,
@@ -444,7 +442,7 @@ class _AdminScreenState extends State<AdminScreen> {
                   itemCount: files.length,
                   itemBuilder: (context, index) {
                     return Container(
-                      margin: EdgeInsets.all(5),
+                      margin: const EdgeInsets.all(5),
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
                       ),

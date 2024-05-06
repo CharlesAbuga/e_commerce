@@ -1,9 +1,6 @@
 import 'dart:developer';
-import 'dart:io';
-import 'dart:typed_data';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 import 'package:product_repository/product_repository.dart';
 import 'package:uuid/uuid.dart';
 
@@ -13,6 +10,7 @@ class FirebaseProductRepository implements ProductRepository {
   Future<Product> createProduct(Product product) async {
     try {
       product.productId = const Uuid().v1();
+      product.createdAt = DateTime.now();
 
       // Get the download URL and store it in the product
       // Assuming imageUrl is a list of strings
@@ -22,7 +20,7 @@ class FirebaseProductRepository implements ProductRepository {
       return product;
     } on FirebaseException catch (e) {
       log(e.toString());
-      print(e.message);
+      log(e.message.toString());
       rethrow;
     }
   }
@@ -38,6 +36,19 @@ class FirebaseProductRepository implements ProductRepository {
       });
     } catch (e) {
       log(e.toString());
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> updateProduct(Product product) async {
+    try {
+      await productCollection
+          .doc(product.productId)
+          .update(product.toEntity().toDocument());
+    } on FirebaseException catch (e) {
+      log(e.toString());
+      log(e.message.toString());
       rethrow;
     }
   }

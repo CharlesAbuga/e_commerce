@@ -9,4 +9,9 @@ abstract class UserRepository {
   Future<void> resetPassword(String email);
   Future<void> setUserData(MyUser user);
   Future<MyUser> getMyUser(String myUserId);
+  Future<void> updateUserData(MyUser user);
+  Future<void> deleteCartProduct(MyUser user, String productId);
+  Future<void> deleteSavedProduct(MyUser user, String productId);
+  Future<void> addSavedProduct(MyUser user, Map<String, dynamic> productToAdd);
+  Stream<MyUser> userStream(String userId);
 }

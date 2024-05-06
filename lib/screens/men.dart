@@ -4,7 +4,6 @@ import 'package:ecommerce_app/widgets/appbar_small.dart';
 import 'package:ecommerce_app/widgets/drawer_widget.dart';
 import 'package:ecommerce_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Men extends StatelessWidget {
@@ -15,10 +14,10 @@ class Men extends StatelessWidget {
     return Scaffold(
         appBar: MediaQuery.of(context).size.width < 800
             ? PreferredSize(
-                preferredSize: Size(MediaQuery.of(context).size.width, 100),
+                preferredSize: Size(MediaQuery.of(context).size.width, 70),
                 child: const AppBarSmall())
             : PreferredSize(
-                preferredSize: Size(MediaQuery.of(context).size.width, 60),
+                preferredSize: Size(MediaQuery.of(context).size.width, 70),
                 child: const Center(child: AppBarMain())),
         drawer: MediaQuery.of(context).size.width < 800
             ? const DrawerWidget()

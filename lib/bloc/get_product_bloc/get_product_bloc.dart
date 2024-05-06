@@ -1,3 +1,5 @@
+import 'dart:developer';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -19,7 +21,7 @@ class GetProductBloc extends Bloc<GetProductEvent, GetProductState> {
         emit(GetProductSuccess(products: products));
       } on FirebaseException catch (e) {
         emit(GetProductFailure());
-        print(e.message.toString());
+        log(e.message.toString());
       }
     });
   }

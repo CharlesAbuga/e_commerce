@@ -1,7 +1,14 @@
+import 'dart:js';
+
 import 'package:ecommerce_app/Routes/go_router.dart';
 import 'package:ecommerce_app/bloc/authentication/authentication_bloc.dart';
 import 'package:ecommerce_app/bloc/create_product_bloc/create_product_bloc.dart';
 import 'package:ecommerce_app/bloc/get_product_bloc/get_product_bloc.dart';
+import 'package:ecommerce_app/bloc/my_user/my_user_bloc.dart';
+import 'package:ecommerce_app/Routes/router_constants.dart';
+import 'package:ecommerce_app/bloc/sign_in/sign_in_bloc.dart';
+import 'package:ecommerce_app/bloc/update_product_bloc/update_product_bloc.dart';
+import 'package:ecommerce_app/bloc/update_user_info/update_user_info_bloc.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,31 +32,51 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final UserRepository userRepository;
-  const MyApp(this.userRepository, {super.key});
+  const MyApp(this.userRepository, {Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
         providers: [
-          RepositoryProvider(create: (_) {
-            AuthenticationBloc(myUserRepository: userRepository);
-          })
+          RepositoryProvider<AuthenticationBloc>(
+            create: (_) => AuthenticationBloc(myUserRepository: userRepository),
+          )
         ],
         child: MultiBlocProvider(
           providers: [
             BlocProvider(
               create: (context) =>
+                  MyUserBloc(myUserRepository: FirebaseUserRepository())
+                    ..add(GetMyUser(
+                        myUserId: context
+                            .read<AuthenticationBloc>()
+                            .state
+                            .user!
+                            .uid)),
+            ),
+            BlocProvider(
+                create: (context) => UpdateProductBloc(
+                    productRepository: FirebaseProductRepository())),
+            BlocProvider(
+              create: (context) =>
                   AuthenticationBloc(myUserRepository: userRepository),
+            ),
+            BlocProvider(
+              create: (context) =>
+                  UpdateUserInfoBloc(userRepository: FirebaseUserRepository()),
             ),
             BlocProvider(
               create: (context) => CreateProductBloc(
                   productRepository: FirebaseProductRepository()),
             ),
             BlocProvider(
+                create: (context) =>
+                    SignInBloc(userRepository: userRepository)),
+            BlocProvider(
               create: (context) =>
                   GetProductBloc(productRepository: FirebaseProductRepository())
-                    ..add(GetProduct()),
+                    ..add(const GetProduct()),
             ),
           ],
           child: MaterialApp.router(

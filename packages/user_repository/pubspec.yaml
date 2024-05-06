@@ -47,6 +47,9 @@ dependencies:
   firebase_core: ^2.27.1
   cloud_firestore: ^4.15.9
 
+  product_repository:
+    path: ../product_repository
+
 
 
 dev_dependencies:

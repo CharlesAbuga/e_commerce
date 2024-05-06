@@ -1,3 +1,5 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class ProductEntity {
   final String productId;
   final String name;
@@ -10,6 +12,7 @@ class ProductEntity {
   final String ageGroup;
   final String gender; // Use the enum here
   final List<String> imageUrl;
+  final DateTime createdAt;
 
   ProductEntity({
     required this.productId,
@@ -23,6 +26,7 @@ class ProductEntity {
     required this.ageGroup,
     required this.gender,
     required this.imageUrl,
+    required this.createdAt,
   });
 
   Map<String, Object?> toDocument() {
@@ -38,6 +42,7 @@ class ProductEntity {
       'gender': gender,
       'ageGroup': ageGroup,
       'imageUrl': imageUrl,
+      'createdAt': createdAt,
     };
   }
 
@@ -54,6 +59,9 @@ class ProductEntity {
       gender: doc['gender'] as String,
       ageGroup: doc['ageGroup'] as String,
       imageUrl: (doc['imageUrl'] as List).cast<String>(),
+      createdAt: doc['creationDate'] != null
+          ? (doc['creationDate'] as Timestamp).toDate()
+          : DateTime.now(),
     );
   }
 
@@ -72,6 +80,7 @@ class ProductEntity {
         ageGroup: $ageGroup,
         gender: $gender,
         imageUrl: $imageUrl,
+        createdAt: $createdAt,
       }
     ''';
   }

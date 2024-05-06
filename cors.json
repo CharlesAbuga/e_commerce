@@ -1,7 +1,7 @@
 [
     {
-      "origin": ["http://localhost:8080"],
-      "method": ["GET"],
+      "origin": [ "http://localhost:8080/", "https://leonclassycollection.netlify.app/" ],
+      "method": ["GET", "HEAD", "DELETE"],
       "maxAgeSeconds": 3600
     }
   ]

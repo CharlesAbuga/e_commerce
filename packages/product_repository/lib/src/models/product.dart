@@ -12,6 +12,7 @@ class Product {
   String ageGroup;
   String gender;
   List<String> imageUrl;
+  DateTime createdAt;
 
   Product({
     required this.productId,
@@ -25,6 +26,7 @@ class Product {
     required this.ageGroup,
     required this.gender,
     required this.imageUrl,
+    required this.createdAt,
   });
 
   static var empty = Product(
@@ -39,6 +41,7 @@ class Product {
     stock: 0,
     gender: '',
     imageUrl: [],
+    createdAt: DateTime.now(),
   );
 
   Product copyWith({
@@ -66,6 +69,7 @@ class Product {
       ageGroup: ageGroup ?? this.ageGroup,
       gender: gender ?? this.gender,
       imageUrl: imageUrl ?? this.imageUrl,
+      createdAt: createdAt,
     );
   }
 
@@ -86,6 +90,7 @@ class Product {
       gender: gender,
       ageGroup: ageGroup,
       imageUrl: imageUrl,
+      createdAt: createdAt,
     );
   }
 
@@ -102,6 +107,7 @@ class Product {
       gender: entity.gender,
       ageGroup: entity.ageGroup,
       imageUrl: entity.imageUrl,
+      createdAt: entity.createdAt,
     );
   }
 }

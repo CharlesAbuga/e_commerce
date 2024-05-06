@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:user_repository/user_repository.dart';
 
 part 'my_user_event.dart';
@@ -18,8 +19,9 @@ class MyUserBloc extends Bloc<MyUserEvent, MyUserState> {
       try {
         MyUser myUser = await _userRepository.getMyUser(event.myUserId);
         emit(MyUserState.success(myUser));
-      } catch (e) {
+      } on FirebaseException catch (e) {
         log(e.toString());
+        print(e.message);
         emit(const MyUserState.failure());
       }
     });
