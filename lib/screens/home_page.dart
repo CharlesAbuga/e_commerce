@@ -11,6 +11,7 @@ import 'package:ecommerce_app/widgets/product_card.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:marquee/marquee.dart';
 import 'package:user_repository/user_repository.dart';
 
 class HomePage extends StatefulWidget {
@@ -87,7 +88,6 @@ class _HomePageState extends State<HomePage> {
                             ..sort(
                                 (a, b) => b.createdAt.compareTo(a.createdAt));
                           return ListView(
-                            shrinkWrap: true,
                             children: [
                               MediaQuery.of(context).size.width < 800
                                   ? const Padding(
@@ -96,42 +96,83 @@ class _HomePageState extends State<HomePage> {
                                         height: 10,
                                       ),
                                     )
-                                  : Row(
-                                      children: [
-                                        Container(
-                                          margin:
-                                              const EdgeInsets.only(bottom: 50),
-                                          child: const Padding(
-                                            padding: EdgeInsets.only(
-                                                left: 115, top: 20),
-                                            child: Text(
-                                              'WELCOME BACK',
-                                              style: TextStyle(
-                                                fontSize: 30,
-                                                fontWeight: FontWeight.bold,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
+                                  : Padding(
+                                      padding: const EdgeInsets.all(8.0),
+                                      child: SizedBox(
+                                        height: 30,
+                                        child: Center(
+                                          child: Marquee(
+                                            text:
+                                                '-- Shipping within Mombasa is 300/- and outside Mombasa is 500/- ',
+                                            style: const TextStyle(
+                                                fontSize: 16,
+                                                fontWeight: FontWeight.bold),
+                                            scrollAxis: Axis.horizontal,
+                                            crossAxisAlignment:
+                                                CrossAxisAlignment.center,
+                                            velocity: 70.0,
+                                            startPadding: 10.0,
+                                            blankSpace: 90,
+                                            accelerationDuration:
+                                                Duration(seconds: 1),
+                                            accelerationCurve: Curves.linear,
+                                            decelerationDuration:
+                                                Duration(milliseconds: 500),
+                                            decelerationCurve: Curves.easeOut,
                                           ),
                                         ),
-                                      ],
+                                      ),
                                     ),
+                              const SizedBox(height: 20),
                               const Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [CarouselSliderHome()],
                               ),
-                              const Center(
-                                child: Text('FOR MEN',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                              Padding(
+                                padding: MediaQuery.of(context).size.width > 800
+                                    ? const EdgeInsets.symmetric(
+                                        horizontal: 37.0, vertical: 8)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 20.0, vertical: 8),
+                                child: Container(
+                                  height: 70,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: const Center(
+                                    child: ListTile(
+                                      title: Text('For Men',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      trailing: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text('View All',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                              )),
+                                          SizedBox(
+                                            width: 2,
+                                          ),
+                                          Icon(
+                                            Icons.arrow_forward_ios,
+                                            size: 14,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 25.0, vertical: 8),
                                 child: SizedBox(
-                                  height: 300,
+                                  height: 280,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
@@ -157,18 +198,51 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(
                                 height: 15,
                               ),
-                              const Center(
-                                child: Text('FOR WOMEN',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                              Padding(
+                                padding: MediaQuery.of(context).size.width > 800
+                                    ? const EdgeInsets.symmetric(
+                                        horizontal: 37.0, vertical: 8)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 20.0, vertical: 8),
+                                child: Container(
+                                  height: 70,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: const Center(
+                                    child: ListTile(
+                                      title: Text('For Women',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      trailing: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text('View All',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                              )),
+                                          SizedBox(
+                                            width: 2,
+                                          ),
+                                          Icon(
+                                            Icons.arrow_forward_ios,
+                                            size: 14,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 25.0, vertical: 8),
                                 child: SizedBox(
-                                  height: 300,
+                                  height: 280,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
@@ -195,18 +269,51 @@ class _HomePageState extends State<HomePage> {
                               const SizedBox(
                                 height: 15,
                               ),
-                              const Center(
-                                child: Text('CHILDREN',
-                                    style: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                    )),
+                              Padding(
+                                padding: MediaQuery.of(context).size.width > 800
+                                    ? const EdgeInsets.symmetric(
+                                        horizontal: 37.0, vertical: 8)
+                                    : const EdgeInsets.symmetric(
+                                        horizontal: 20.0, vertical: 8),
+                                child: Container(
+                                  height: 70,
+                                  width: double.infinity,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  child: const Center(
+                                    child: ListTile(
+                                      title: Text('For Children',
+                                          style: TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold,
+                                          )),
+                                      trailing: Row(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: [
+                                          Text('View All',
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                              )),
+                                          SizedBox(
+                                            width: 2,
+                                          ),
+                                          Icon(
+                                            Icons.arrow_forward_ios,
+                                            size: 14,
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ),
                               ),
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 25.0, vertical: 8),
                                 child: SizedBox(
-                                  height: 300,
+                                  height: 280,
                                   child: ListView.builder(
                                     scrollDirection: Axis.horizontal,
                                     shrinkWrap: true,
@@ -228,53 +335,45 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                 ),
                               ),
-                              Text(
-                                'RECENTLY ADDED PRODUCTS',
-                                style: TextStyle(
-                                  fontSize:
-                                      MediaQuery.of(context).size.width > 900
-                                          ? 20
-                                          : 20,
-                                  fontWeight: FontWeight.bold,
+                              Container(
+                                height: 200,
+                                width: 600,
+                                margin: const EdgeInsets.all(20),
+                                decoration: BoxDecoration(
+                                  color: Colors.grey[200],
+                                  borderRadius: BorderRadius.circular(10),
                                 ),
-                                textAlign: TextAlign.center,
+                                child: Text(
+                                  'RECENTLY ADDED PRODUCTS',
+                                  style: TextStyle(
+                                    fontSize:
+                                        MediaQuery.of(context).size.width > 900
+                                            ? 20
+                                            : 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  textAlign: TextAlign.center,
+                                ),
                               ),
                               const SizedBox(height: 5),
-                              const Icon(CupertinoIcons.chevron_down),
-                              MediaQuery.of(context).size.width > 1000
-                                  ? Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 70.0, right: 70, top: 20),
-                                      child: GridView.builder(
-                                          scrollDirection: Axis.vertical,
-                                          gridDelegate:
-                                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisSpacing: 5,
-                                                  mainAxisExtent: 320,
-                                                  crossAxisCount: 5),
-                                          itemCount: state.products.length,
-                                          shrinkWrap: true,
-                                          itemBuilder: (context, index) {
-                                            return ProductCard(
-                                                product: sortedProducts[index]);
-                                          }),
-                                    )
-                                  : Padding(
-                                      padding: const EdgeInsets.all(10.0),
-                                      child: GridView.builder(
-                                          scrollDirection: Axis.vertical,
-                                          gridDelegate:
-                                              const SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisSpacing: 5,
-                                                  mainAxisExtent: 280,
-                                                  crossAxisCount: 2),
-                                          itemCount: state.products.length,
-                                          shrinkWrap: true,
-                                          itemBuilder: (context, index) {
-                                            return ProductCard(
-                                                product: sortedProducts[index]);
-                                          }),
-                                    ),
+                              Padding(
+                                padding: const EdgeInsets.only(
+                                    left: 30.0, right: 30, top: 20),
+                                child: SizedBox(
+                                  height: 280,
+                                  child: ListView.builder(
+                                      shrinkWrap: true,
+                                      scrollDirection: Axis.horizontal,
+                                      itemCount: state.products.length,
+                                      itemBuilder: (context, index) {
+                                        return SizedBox(
+                                          width: 250,
+                                          child: ProductCard(
+                                              product: sortedProducts[index]),
+                                        );
+                                      }),
+                                ),
+                              )
                             ],
                           );
                         } else {

@@ -21,6 +21,7 @@ class ProductCard extends StatefulWidget {
 }
 
 class _ProductCardState extends State<ProductCard> {
+  final ValueNotifier<bool> _isHovering = ValueNotifier<bool>(false);
   bool isProductSaved = false;
 
   @override
@@ -66,7 +67,7 @@ class _ProductCardState extends State<ProductCard> {
               return BlocBuilder<GetProductBloc, GetProductState>(
                 builder: (context, state) {
                   return SizedBox(
-                    width: null,
+                    width: 220,
                     height: null,
                     child: Padding(
                       padding: const EdgeInsets.all(8.0),
@@ -83,21 +84,53 @@ class _ProductCardState extends State<ProductCard> {
                                     },
                                     extra: widget.product);
                               },
-                              child: ClipRRect(
-                                borderRadius: BorderRadius.circular(15),
-                                child: Image.network(widget.product.imageUrl[0],
-                                    fit: BoxFit.cover, width: 240, height: 170,
-                                    errorBuilder: (BuildContext context,
-                                        Object exception,
-                                        StackTrace? stackTrace) {
-                                  return const Center(
-                                    child: Text('Could not load image'),
-                                  );
-                                }),
+                              child: MouseRegion(
+                                onEnter: (_) => _isHovering.value = true,
+                                onExit: (_) => _isHovering.value = false,
+                                child: ValueListenableBuilder(
+                                    valueListenable: _isHovering,
+                                    builder: (context, bool isHovering, child) {
+                                      return AnimatedContainer(
+                                        duration: Duration(milliseconds: 200),
+                                        curve: Curves.easeIn,
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          boxShadow: isHovering
+                                              ? [
+                                                  BoxShadow(
+                                                    color: Colors.grey
+                                                        .withOpacity(0.3),
+                                                    spreadRadius: 3,
+                                                    blurRadius: 5,
+                                                    offset: const Offset(0, 3),
+                                                  ),
+                                                ]
+                                              : [],
+                                        ),
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15),
+                                          child: Image.network(
+                                              widget.product.imageUrl[0],
+                                              fit: BoxFit.cover,
+                                              width: 220,
+                                              height: 170, errorBuilder:
+                                                  (BuildContext context,
+                                                      Object exception,
+                                                      StackTrace? stackTrace) {
+                                            return const Center(
+                                              child:
+                                                  Text('Could not load image'),
+                                            );
+                                          }),
+                                        ),
+                                      );
+                                    }),
                               ),
                             ),
                             const SizedBox(
-                              height: 5,
+                              height: 8,
                             ),
                             Row(
                               mainAxisAlignment: MainAxisAlignment.start,

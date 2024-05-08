@@ -74,9 +74,9 @@ class MensShoes extends StatelessWidget {
                                   shrinkWrap: true,
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisSpacing: 25,
+                                          crossAxisSpacing: 20,
                                           mainAxisExtent: 320,
-                                          crossAxisCount: 5),
+                                          crossAxisCount: 6),
                                   itemCount: products.length,
                                   itemBuilder: (context, index) {
                                     final product = products[index];

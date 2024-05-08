@@ -57,7 +57,7 @@ class MensClothes extends StatelessWidget {
                                   product.gender == "Male")
                               .toList();
                           return SingleChildScrollView(
-                            child: MediaQuery.of(context).size.width < 900
+                            child: MediaQuery.of(context).size.width < 800
                                 ? GridView.builder(
                                     shrinkWrap: true,
                                     gridDelegate:
@@ -75,13 +75,14 @@ class MensClothes extends StatelessWidget {
                                     shrinkWrap: true,
                                     gridDelegate:
                                         const SliverGridDelegateWithFixedCrossAxisCount(
-                                            crossAxisSpacing: 25,
+                                            crossAxisSpacing: 20,
                                             mainAxisExtent: 320,
-                                            crossAxisCount: 5),
+                                            crossAxisCount: 6),
                                     itemCount: products.length,
                                     itemBuilder: (context, index) {
                                       final product = products[index];
-                                      return ProductCard(product: product);
+                                      return SizedBox(
+                                          child: ProductCard(product: product));
                                     },
                                   ),
                           );

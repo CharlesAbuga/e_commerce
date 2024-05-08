@@ -199,7 +199,7 @@ class _MyCartState extends State<MyCart> {
                                                                                 const EdgeInsets.only(left: 8.0),
                                                                             child:
                                                                                 Text(
-                                                                              'Ksh ////${(cartproduct['price'] * cartproduct['quantity']).toString()}',
+                                                                              'Ksh ${(cartproduct['price'] * cartproduct['quantity']).toString()}',
                                                                               style: const TextStyle(
                                                                                 fontWeight: FontWeight.bold,
                                                                               ),

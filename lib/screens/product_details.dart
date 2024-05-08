@@ -140,21 +140,23 @@ class _ProductDetailState extends State<ProductDetail> {
                                       const SizedBox(
                                         height: 10,
                                       ),
-                                      const Padding(
-                                        padding: EdgeInsets.only(
+                                      Padding(
+                                        padding: const EdgeInsets.only(
                                             left: 14.0, right: 14),
                                         child: Row(
                                           children: [
-                                            Text(
+                                            const Text(
                                               'Status :',
                                               style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
-                                            SizedBox(width: 10),
+                                            const SizedBox(width: 10),
                                             Text(
-                                              'In Stock',
-                                              style: TextStyle(
+                                              product.stock > 0
+                                                  ? 'In Stock'
+                                                  : 'Out of Stock',
+                                              style: const TextStyle(
                                                 fontWeight: FontWeight.bold,
                                               ),
                                             ),
@@ -353,106 +355,101 @@ class _ProductDetailState extends State<ProductDetail> {
 
                                                         return ElevatedButton(
                                                           onPressed: () {
-                                                            setState(() {
-                                                              final myUserBloc =
-                                                                  context.read<
-                                                                      MyUserBloc>();
-                                                              if (myUserBloc
-                                                                      .state
-                                                                      .user !=
-                                                                  null) {
-                                                                if (myUser
-                                                                        .cartProducts ==
-                                                                    null) {
-                                                                  myUser = myUser
-                                                                      .copyWith(
-                                                                          cartProducts: []);
-                                                                }
-                                                                var newSize = List<
-                                                                        String>.from(
-                                                                    product
-                                                                        .size);
-                                                                newSize.add(
-                                                                    selectedSize
-                                                                        .toString());
-                                                                var newColor = List<
-                                                                        String>.from(
-                                                                    product
-                                                                        .color);
-                                                                newColor.add(
-                                                                    selectedColor
-                                                                        .toString());
-                                                                var productToAdd =
-                                                                    Product(
-                                                                  createdAt: product
-                                                                      .createdAt,
-                                                                  productId: product
-                                                                      .productId,
-                                                                  name: product
-                                                                      .name,
-                                                                  description:
-                                                                      product
-                                                                          .ageGroup,
-                                                                  price: product
-                                                                      .price,
-                                                                  category: product
-                                                                      .category,
-                                                                  size: [
-                                                                    product.size[
-                                                                        selectedSize]
-                                                                  ],
-                                                                  color: [
-                                                                    product.color[
-                                                                        selectedColor]
-                                                                  ],
-                                                                  stock: product
-                                                                      .stock,
-                                                                  ageGroup: product
-                                                                      .ageGroup,
-                                                                  gender: product
-                                                                      .gender,
-                                                                  imageUrl: product
-                                                                      .imageUrl,
-                                                                );
-                                                                var existingProductIndex = myUser
-                                                                    .cartProducts!
-                                                                    .indexWhere((cartProduct) =>
-                                                                        cartProduct[
-                                                                            'productId'] ==
-                                                                        productToAdd
-                                                                            .productId);
+                                                            product.stock > 0
+                                                                ? setState(() {
+                                                                    final myUserBloc =
+                                                                        context.read<
+                                                                            MyUserBloc>();
+                                                                    if (myUserBloc
+                                                                            .state
+                                                                            .user !=
+                                                                        null) {
+                                                                      if (myUser
+                                                                              .cartProducts ==
+                                                                          null) {
+                                                                        myUser =
+                                                                            myUser.copyWith(cartProducts: []);
+                                                                      }
+                                                                      var newSize = List<
+                                                                              String>.from(
+                                                                          product
+                                                                              .size);
+                                                                      newSize.add(
+                                                                          selectedSize
+                                                                              .toString());
+                                                                      var newColor = List<
+                                                                              String>.from(
+                                                                          product
+                                                                              .color);
+                                                                      newColor.add(
+                                                                          selectedColor
+                                                                              .toString());
+                                                                      var productToAdd =
+                                                                          Product(
+                                                                        createdAt:
+                                                                            product.createdAt,
+                                                                        productId:
+                                                                            product.productId,
+                                                                        name: product
+                                                                            .name,
+                                                                        description:
+                                                                            product.ageGroup,
+                                                                        price: product
+                                                                            .price,
+                                                                        category:
+                                                                            product.category,
+                                                                        size: [
+                                                                          product
+                                                                              .size[selectedSize]
+                                                                        ],
+                                                                        color: [
+                                                                          product
+                                                                              .color[selectedColor]
+                                                                        ],
+                                                                        stock: product
+                                                                            .stock,
+                                                                        ageGroup:
+                                                                            product.ageGroup,
+                                                                        gender:
+                                                                            product.gender,
+                                                                        imageUrl:
+                                                                            product.imageUrl,
+                                                                      );
+                                                                      var existingProductIndex = myUser
+                                                                          .cartProducts!
+                                                                          .indexWhere((cartProduct) =>
+                                                                              cartProduct['productId'] ==
+                                                                              productToAdd.productId);
 
-                                                                if (existingProductIndex !=
-                                                                    -1) {
-                                                                  // If the product exists, increment its quantity
-                                                                  myUser.cartProducts![
-                                                                          existingProductIndex]
-                                                                      [
-                                                                      'quantity'] += 1;
-                                                                } else {
-                                                                  // If the product doesn't exist, add it to the cart with a quantity of 1
-                                                                  var productToAddEntity =
-                                                                      productToAdd
-                                                                          .toEntity()
-                                                                          .toDocument();
-                                                                  productToAddEntity[
-                                                                      'quantity'] = 1;
-                                                                  myUser = myUser
-                                                                      .copyWith(
-                                                                    cartProducts: myUser
-                                                                        .cartProducts!
-                                                                      ..add(
-                                                                          productToAddEntity),
-                                                                  );
-                                                                }
+                                                                      if (existingProductIndex !=
+                                                                          -1) {
+                                                                        // If the product exists, increment its quantity
+                                                                        myUser.cartProducts![existingProductIndex]
+                                                                            [
+                                                                            'quantity'] += 1;
+                                                                      } else {
+                                                                        // If the product doesn't exist, add it to the cart with a quantity of 1
+                                                                        var productToAddEntity = productToAdd
+                                                                            .toEntity()
+                                                                            .toDocument();
+                                                                        productToAddEntity[
+                                                                            'quantity'] = 1;
+                                                                        myUser =
+                                                                            myUser.copyWith(
+                                                                          cartProducts: myUser
+                                                                              .cartProducts!
+                                                                            ..add(productToAddEntity),
+                                                                        );
+                                                                      }
 
-                                                                context
-                                                                    .read<
-                                                                        UpdateUserInfoBloc>()
-                                                                    .add(UpdateUserInfoRequired(
-                                                                        myUser));
-                                                              }
-                                                            });
+                                                                      context
+                                                                          .read<
+                                                                              UpdateUserInfoBloc>()
+                                                                          .add(UpdateUserInfoRequired(
+                                                                              myUser));
+                                                                    }
+                                                                  })
+                                                                : null;
                                                           },
                                                           style: ElevatedButton.styleFrom(
                                                               backgroundColor:

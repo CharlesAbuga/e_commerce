@@ -12,8 +12,8 @@ class CarouselSliderHome extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Container(
-          width: size.width / 1.4,
-          height: size.height / 1.5,
+          width: size.width / 1.2,
+          height: size.height / 1.7,
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(30),
           ),
@@ -46,14 +46,14 @@ class CarouselSliderHome extends StatelessWidget {
                 ],
                 options: CarouselOptions(
                     autoPlay: true,
-                    viewportFraction: 0.8,
+                    viewportFraction: 1,
                     aspectRatio: 16 / 9,
                     height: size.height / 2,
                     autoPlayCurve: Curves.fastOutSlowIn,
                     scrollDirection: Axis.horizontal,
                     enlargeCenterPage: true),
               ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 20),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
