@@ -16,6 +16,7 @@ class UpdateUserInfoBloc
       emit(UpdateUserInfoLoading());
       try {
         await _userRepository.updateUserData(event.user);
+
         emit(UpdateUserInfoSuccess());
       } catch (e) {
         emit(UpdateUserInfoFailure());
@@ -26,6 +27,7 @@ class UpdateUserInfoBloc
       emit(UpdateUserInfoLoading());
       try {
         await _userRepository.deleteCartProduct(event.user, event.productId);
+
         emit(UpdateUserInfoSuccess());
       } catch (e) {
         emit(UpdateUserInfoFailure());
@@ -35,6 +37,7 @@ class UpdateUserInfoBloc
       emit(UpdateUserInfoLoading());
       try {
         await _userRepository.deleteSavedProduct(event.user, event.productId);
+
         emit(UpdateUserInfoSuccess());
       } catch (e) {
         emit(UpdateUserInfoFailure());
@@ -44,6 +47,7 @@ class UpdateUserInfoBloc
       emit(UpdateUserInfoLoading());
       try {
         await _userRepository.addSavedProduct(event.user, event.productToAdd);
+
         emit(UpdateUserInfoSuccess());
       } catch (e) {
         emit(UpdateUserInfoFailure());

@@ -233,6 +233,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       width: MediaQuery.of(context).size.width > 800
                           ? MediaQuery.of(context).size.width * 0.15
                           : MediaQuery.of(context).size.width * 0.5,
+                      height: 50,
                       child: TextButton(
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {

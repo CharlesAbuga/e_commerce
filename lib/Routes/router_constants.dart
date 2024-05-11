@@ -6,6 +6,8 @@ class RouteConstants {
   static String admin = 'admin';
   static String adminUpdate = 'adminUpdate';
   static String mens = 'mens';
+  static String womens = 'womens';
+  static String children = 'children';
   static String babyClothes = 'babyClothes';
   static String babyShoes = 'babyShoes';
   static String babyAccessories = 'babyAccessories';
@@ -19,4 +21,5 @@ class RouteConstants {
   static String savedProducts = 'savedProducts';
   static String checkout = 'checkout';
   static String search = 'search';
+  static String orders = 'orders';
 }

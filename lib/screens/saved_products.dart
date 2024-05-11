@@ -58,11 +58,12 @@ class _SavedProductsState extends State<SavedProducts> {
                       if (state.status == MyUserStatus.loading) {
                         return const CircularProgressIndicator();
                       } else if (state.status == MyUserStatus.success) {
-                        return MediaQuery.of(context).size.width > 800
+                        return MediaQuery.of(context).size.width > 1100
                             ? Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: GridView.builder(
                                   shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 5,
@@ -139,7 +140,7 @@ class _SavedProductsState extends State<SavedProducts> {
                                                                   .state
                                                                   .user!
                                                                   .copyWith(
-                                                                    cartProducts: context
+                                                                    savedProducts: context
                                                                         .read<
                                                                             MyUserBloc>()
                                                                         .state
@@ -172,8 +173,19 @@ class _SavedProductsState extends State<SavedProducts> {
                                                       setState(() {});
                                                     }),
                                                 HoverButton(
-                                                    buttonText: 'ADD TO CART',
-                                                    onPressed: () {}),
+                                                    buttonText: 'Buy Now',
+                                                    onPressed: () {
+                                                      GoRouter.of(context)
+                                                          .goNamed(
+                                                              RouteConstants
+                                                                  .details,
+                                                              pathParameters: {
+                                                                'productId':
+                                                                    product[
+                                                                        'productId']
+                                                              },
+                                                              extra: product);
+                                                    }),
                                               ],
                                             ),
                                           ],
@@ -187,6 +199,7 @@ class _SavedProductsState extends State<SavedProducts> {
                                 padding: const EdgeInsets.all(8.0),
                                 child: GridView.builder(
                                   shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisCount: 2,
@@ -243,76 +256,94 @@ class _SavedProductsState extends State<SavedProducts> {
                                               ),
                                             ),
                                             const SizedBox(height: 10),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.spaceEvenly,
-                                              children: [
-                                                IconButton.filled(
-                                                  iconSize: 20,
-                                                  hoverColor: Colors.red,
-                                                  style: ButtonStyle(
-                                                    fixedSize:
-                                                        MaterialStateProperty
-                                                            .all(const Size(
-                                                                25, 25)),
-                                                    backgroundColor:
-                                                        MaterialStateProperty
-                                                            .all(Colors.black),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.symmetric(
+                                                      horizontal: 8.0),
+                                              child: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment
+                                                        .spaceBetween,
+                                                children: [
+                                                  IconButton.filled(
+                                                    iconSize: 20,
+                                                    hoverColor: Colors.red,
+                                                    style: ButtonStyle(
+                                                      fixedSize:
+                                                          MaterialStateProperty
+                                                              .all(const Size(
+                                                                  25, 25)),
+                                                      backgroundColor:
+                                                          MaterialStateProperty
+                                                              .all(
+                                                                  Colors.black),
+                                                    ),
+                                                    color: Colors.white,
+                                                    icon: const Icon(
+                                                        Icons.delete),
+                                                    onPressed: () {
+                                                      String productId = product[
+                                                          'productId']; // Assuming each product has an 'id' field
+                                                      context
+                                                          .read<
+                                                              UpdateUserInfoBloc>()
+                                                          .add(
+                                                            DeleteSavedProducts(
+                                                              context
+                                                                  .read<
+                                                                      MyUserBloc>()
+                                                                  .state
+                                                                  .user!
+                                                                  .copyWith(
+                                                                    savedProducts: context
+                                                                        .read<
+                                                                            MyUserBloc>()
+                                                                        .state
+                                                                        .user!
+                                                                        .savedProducts!
+                                                                      ..removeAt(
+                                                                          index),
+                                                                  ),
+                                                              productId,
+                                                            ),
+                                                          );
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          behavior:
+                                                              SnackBarBehavior
+                                                                  .floating,
+                                                          shape: RoundedRectangleBorder(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10)),
+                                                          backgroundColor:
+                                                              Colors.red,
+                                                          content: const Text(
+                                                              'Product removed'),
+                                                        ),
+                                                      );
+                                                      setState(() {});
+                                                    },
                                                   ),
-                                                  color: Colors.white,
-                                                  icon:
-                                                      const Icon(Icons.delete),
-                                                  onPressed: () {
-                                                    String productId = product[
-                                                        'productId']; // Assuming each product has an 'id' field
-                                                    context
-                                                        .read<
-                                                            UpdateUserInfoBloc>()
-                                                        .add(
-                                                          DeleteSavedProducts(
-                                                            context
-                                                                .read<
-                                                                    MyUserBloc>()
-                                                                .state
-                                                                .user!
-                                                                .copyWith(
-                                                                  savedProducts: context
-                                                                      .read<
-                                                                          MyUserBloc>()
-                                                                      .state
-                                                                      .user!
-                                                                      .savedProducts!
-                                                                    ..removeAt(
-                                                                        index),
-                                                                ),
-                                                            productId,
-                                                          ),
-                                                        );
-                                                    ScaffoldMessenger.of(
-                                                            context)
-                                                        .showSnackBar(
-                                                      SnackBar(
-                                                        behavior:
-                                                            SnackBarBehavior
-                                                                .floating,
-                                                        shape: RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10)),
-                                                        backgroundColor:
-                                                            Colors.red,
-                                                        content: const Text(
-                                                            'Product removed'),
-                                                      ),
-                                                    );
-                                                    setState(() {});
-                                                  },
-                                                ),
-                                                HoverButton(
-                                                    buttonText: 'ADD TO CART',
-                                                    onPressed: () {}),
-                                              ],
+                                                  HoverButton(
+                                                      buttonText: 'Buy Now',
+                                                      onPressed: () {
+                                                        GoRouter.of(context)
+                                                            .goNamed(
+                                                                RouteConstants
+                                                                    .details,
+                                                                pathParameters: {
+                                                                  'productId':
+                                                                      product[
+                                                                          'productId']
+                                                                },
+                                                                extra: product);
+                                                      }),
+                                                ],
+                                              ),
                                             ),
                                           ],
                                         ),

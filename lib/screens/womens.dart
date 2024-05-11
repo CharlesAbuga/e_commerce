@@ -6,11 +6,12 @@ import 'package:ecommerce_app/widgets/appbar_small.dart';
 import 'package:ecommerce_app/widgets/drawer_widget.dart';
 import 'package:ecommerce_app/widgets/product_card.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 
-class MensClothes extends StatelessWidget {
-  const MensClothes({super.key});
+class Women extends StatelessWidget {
+  const Women({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -52,16 +53,13 @@ class MensClothes extends StatelessWidget {
                         } else if (state is GetProductSuccess) {
                           final products = state.products
                               .where((product) =>
-                                  product.category == 'Clothes' &&
                                   product.ageGroup == "Adults" &&
-                                  product.gender == "Male")
+                                  product.gender == "Female")
                               .toList();
                           return SingleChildScrollView(
-                            child: MediaQuery.of(context).size.width < 800
+                            child: MediaQuery.of(context).size.width < 900
                                 ? GridView.builder(
                                     shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
                                     gridDelegate:
                                         const SliverGridDelegateWithFixedCrossAxisCount(
                                             crossAxisSpacing: 10,
@@ -75,8 +73,6 @@ class MensClothes extends StatelessWidget {
                                   )
                                 : GridView.builder(
                                     shrinkWrap: true,
-                                    physics:
-                                        const NeverScrollableScrollPhysics(),
                                     gridDelegate:
                                         const SliverGridDelegateWithFixedCrossAxisCount(
                                             crossAxisSpacing: 20,
@@ -85,8 +81,7 @@ class MensClothes extends StatelessWidget {
                                     itemCount: products.length,
                                     itemBuilder: (context, index) {
                                       final product = products[index];
-                                      return SizedBox(
-                                          child: ProductCard(product: product));
+                                      return ProductCard(product: product);
                                     },
                                   ),
                           );

@@ -4,10 +4,15 @@ import 'package:ecommerce_app/bloc/sign_up/sign_up_bloc.dart';
 import 'package:ecommerce_app/screens/authentication/sign_in_screen.dart';
 import 'package:ecommerce_app/screens/authentication/sign_up_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_svg/svg.dart';
 
 class WelcomeScreen extends StatefulWidget {
-  const WelcomeScreen({super.key});
+  final ScaffoldMessengerState? scaffoldMessenger;
+  final AppBar? appBar;
+  const WelcomeScreen({super.key, this.scaffoldMessenger, this.appBar})
+      : super();
 
   @override
   State<WelcomeScreen> createState() => _WelcomeScreenState();
@@ -20,7 +25,12 @@ class _WelcomeScreenState extends State<WelcomeScreen>
   @override
   void initState() {
     super.initState();
+
     tabController = TabController(initialIndex: 0, length: 2, vsync: this);
+
+    Future.delayed(const Duration(seconds: 5), () {
+      widget.scaffoldMessenger?.hideCurrentSnackBar();
+    });
   }
 
   @override
@@ -40,10 +50,20 @@ class _WelcomeScreenState extends State<WelcomeScreen>
               children: [
                 const Text(
                   'Welcome Back',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 23, fontWeight: FontWeight.bold),
                 ),
-                const SizedBox(
-                  height: 15,
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 15,
+                ),
+                SvgPicture.asset(
+                  'assets/images/reusable-shopping-bags-svgrepo-com.svg',
+                  height: 100,
+                )
+                    .animate(delay: 500.ms)
+                    .scale(begin: Offset(0, 0), duration: 1.seconds)
+                    .shake(delay: 1000.ms, duration: 500.ms),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height / 10,
                 ),
                 TabBar(
                     controller: tabController,
@@ -91,7 +111,7 @@ class _WelcomeScreenState extends State<WelcomeScreen>
                   ]),
                 )
               ],
-            ),
+            ).animate().fade(duration: 1.seconds).then(delay: 500.ms),
           ),
         ),
       ),

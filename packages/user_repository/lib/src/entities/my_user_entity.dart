@@ -5,7 +5,7 @@ class MyUserEntity extends Equatable {
   final String email;
   final String name;
   final String? addressLine1;
-  final String? addressLine2;
+  final String? streetAddress;
   final String? city;
   final String? postalCode;
   final String? profilePicture;
@@ -17,7 +17,7 @@ class MyUserEntity extends Equatable {
     required this.email,
     required this.name,
     this.addressLine1,
-    this.addressLine2,
+    this.streetAddress,
     this.city,
     this.postalCode,
     this.profilePicture,
@@ -31,7 +31,7 @@ class MyUserEntity extends Equatable {
       'email': email,
       'name': name,
       'addressLine1': addressLine1,
-      'addressLine2': addressLine2,
+      'addressLine2': streetAddress,
       'city': city,
       'postalCode': postalCode,
       'profilePicture': profilePicture,
@@ -51,7 +51,7 @@ class MyUserEntity extends Equatable {
       email: doc['email'] as String,
       name: doc['name'] as String,
       addressLine1: doc['addressLine1'] as String?,
-      addressLine2: doc['addressLine2'] as String?,
+      streetAddress: doc['addressLine2'] as String?,
       city: doc['city'] as String?,
       postalCode: doc['postalCode'] as String?,
       profilePicture: doc['profilePicture'] as String?,
@@ -70,7 +70,7 @@ class MyUserEntity extends Equatable {
         name,
         email,
         addressLine1,
-        addressLine2,
+        streetAddress,
         city,
         postalCode,
         profilePicture,
@@ -85,7 +85,7 @@ class MyUserEntity extends Equatable {
       email: $email,
       name: $name,
       addressLine1: $addressLine1,
-      addressLine2: $addressLine2,
+      addressLine2: $streetAddress,
       city: $city,
       postalCode: $postalCode,
       profilePicture: $profilePicture,

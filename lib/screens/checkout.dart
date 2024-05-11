@@ -6,15 +6,41 @@ import 'package:ecommerce_app/bloc/my_user/my_user_bloc.dart';
 import 'package:ecommerce_app/widgets/appbar.dart';
 import 'package:ecommerce_app/widgets/appbar_small.dart';
 import 'package:ecommerce_app/widgets/drawer_widget.dart';
+import 'package:ecommerce_app/widgets/hover_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 
-class CheckOut extends StatelessWidget {
+class CheckOut extends StatefulWidget {
   const CheckOut({super.key});
 
   @override
+  State<CheckOut> createState() => _CheckOutState();
+}
+
+class _CheckOutState extends State<CheckOut> {
+  bool isLoading = false;
+  @override
   Widget build(BuildContext context) {
+    Future<void> sendEmail(
+        String recipientEmail, String subject, String body) async {
+      try {
+        final emailRef = FirebaseFirestore.instance.collection('mail');
+
+        final emailData = {
+          'to': recipientEmail,
+          'message': {
+            'subject': subject,
+            'text': body,
+          },
+        };
+
+        await emailRef.add(emailData);
+      } on FirebaseException catch (e) {
+        print(e.message.toString());
+      }
+    }
+
     const sameCountyShipping = 300;
     const differentCountyShipping = 500;
     final ScrollController scrollController = ScrollController();
@@ -131,6 +157,11 @@ class CheckOut extends StatelessWidget {
                                 Text('Name: ${myUser.name}'),
                                 Text('Phone Number: ${myUser.addressLine1}'),
                                 Text('City: ${myUser.city}'),
+                                const SizedBox(height: 8),
+                                HoverButton(
+                                  onPressed: () {},
+                                  buttonText: 'Edit Details',
+                                )
                               ],
                             ),
                           ),
@@ -177,113 +208,140 @@ class CheckOut extends StatelessWidget {
                           ),
 
                           // Checkout button
-                          Container(
-                            decoration: const BoxDecoration(
-                              color: Colors.white,
-                            ),
-                            width: double.infinity,
-                            padding: const EdgeInsets.all(10),
-                            child: ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                minimumSize: const Size(double.infinity, 50),
-                                backgroundColor: Colors.black,
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(16),
-                                ),
+                          Center(
+                            child: Container(
+                              decoration: const BoxDecoration(
+                                color: Colors.white,
                               ),
-                              onPressed: () async {
-                                final myUser =
-                                    context.read<MyUserBloc>().state.user;
+                              width: MediaQuery.of(context).size.width > 1200
+                                  ? MediaQuery.of(context).size.width / 3.5
+                                  : MediaQuery.of(context).size.width / 2,
+                              padding: const EdgeInsets.all(10),
+                              child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  minimumSize: const Size(double.infinity, 50),
+                                  backgroundColor: Colors.black,
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(16),
+                                  ),
+                                ),
+                                onPressed: () async {
+                                  setState(() {
+                                    isLoading = true;
+                                  });
+                                  final myUser =
+                                      context.read<MyUserBloc>().state.user;
 
-                                // Create a new order document in the 'orders' subcollection
-                                final orderRef = FirebaseFirestore.instance
-                                    .collection('users')
-                                    .doc(myUser!.id)
-                                    .collection('orders')
-                                    .doc(); // This creates a new document with a unique ID
+                                  // Create a new order document in the 'orders' subcollection
+                                  final orderRef = FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(myUser!.id)
+                                      .collection('orders')
+                                      .doc(); // This creates a new document with a unique ID
 
-                                // Prepare the order data
-                                final orderData = {
-                                  'products': cartProducts
-                                      .map((product) => {
-                                            'productId': product['productId'],
-                                            'quantity': product['quantity'],
-                                            'price': product['price'],
-                                          })
-                                      .toList(),
-                                  'totalPrice': totalPrice,
-                                  'date': Timestamp.now(),
-                                  // Add any other order details here
-                                };
+                                  // Prepare the order data
+                                  final orderData = {
+                                    'products': cartProducts
+                                        .map((product) => {
+                                              'productId': product['productId'],
+                                              'quantity': product['quantity'],
+                                              'price': product['price'],
+                                              'name': product['name'],
+                                            })
+                                        .toList(),
+                                    'totalPrice': totalPrice,
+                                    'date': Timestamp.now(),
+                                    // Add any other order details here
+                                  };
 
-                                // This merges the new data with the existing document
+                                  // This merges the new data with the existing document
 
-                                try {
-                                  await orderRef.set(orderData);
-                                } catch (e) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text('Error: $e'),
-                                    ),
-                                  );
-                                  return;
-                                }
-
-                                try {
-                                  for (var cartProduct in cartProducts) {
-                                    // Run a transaction on the product document
-                                    await FirebaseFirestore.instance
-                                        .runTransaction((transaction) async {
-                                      // Fetch the product document
-                                      final productDoc = await transaction.get(
-                                        FirebaseFirestore.instance
-                                            .collection('products')
-                                            .doc(cartProduct['productId']),
-                                      );
-
-                                      // Check if the document exists before updating
-                                      if (productDoc.exists) {
-                                        // Subtract the quantity of the product in the cart from the product's stock
-                                        final newStock =
-                                            productDoc.data()!['stock'] -
-                                                cartProduct['quantity'];
-
-                                        // Update the product document with the new stock
-                                        transaction.update(productDoc.reference,
-                                            {'stock': newStock});
-                                      } else {}
-                                    });
+                                  try {
+                                    await orderRef.set(orderData);
+                                    sendEmail(
+                                        state.user!.email,
+                                        'Order Confirmed Successfully',
+                                        '''Dear Esteemed customer your order has been successfully placed. Thank you for shopping with us we hope to see you again soon \n \n - Total Products: ${cartProducts.length}\n - Total Price Ksh ${totalPrice.toStringAsFixed(1)}\n - Shipping: Ksh ${state.user!.city == 'Mombasa' ? sameCountyShipping : differentCountyShipping}\n - Total: ${totalPrice + (state.user!.city == 'Mombasa' ? sameCountyShipping : differentCountyShipping)}\n  \n You can check the products on the orders page of your profile.''');
+                                  } catch (e) {
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text('Error: $e'),
+                                      ),
+                                    );
+                                    return;
                                   }
-                                } catch (e) {
-                                  log(e.toString());
-                                }
 
-                                // For each product in the cart
+                                  try {
+                                    for (var cartProduct in cartProducts) {
+                                      // Run a transaction on the product document
+                                      await FirebaseFirestore.instance
+                                          .runTransaction((transaction) async {
+                                        // Fetch the product document
+                                        final productDoc =
+                                            await transaction.get(
+                                          FirebaseFirestore.instance
+                                              .collection('products')
+                                              .doc(cartProduct['productId']),
+                                        );
 
-                                // Save the order
+                                        // Check if the document exists before updating
+                                        if (productDoc.exists) {
+                                          // Subtract the quantity of the product in the cart from the product's stock
+                                          final newStock =
+                                              productDoc.data()!['stock'] -
+                                                  cartProduct['quantity'];
 
-                                // Update the user document to clear the cart
-                                final userRef = FirebaseFirestore.instance
-                                    .collection('users')
-                                    .doc(myUser.id);
-                                await userRef.update({'cartProducts': []});
+                                          // Update the product document with the new stock
+                                          transaction.update(
+                                              productDoc.reference,
+                                              {'stock': newStock});
+                                        } else {}
+                                      });
+                                    }
+                                  } catch (e) {
+                                    log(e.toString());
+                                  }
 
-                                // Optionally, notify the user that the order was successful
-                                ScaffoldMessenger.of(context).showSnackBar(
-                                  const SnackBar(
-                                      content:
-                                          Text('Order placed successfully!')),
-                                );
-                                // Get current orders and cart products
+                                  // For each product in the cart
 
-                                // Place order
-                                // Clear cart
-                                /*context.read<MyUserBloc>().add(
-                                          MyUserUpdateCartProductsEvent(
-                                              cartProducts: []));*/
-                              },
-                              child: const Text('COMPLETE ORDER',
-                                  style: TextStyle(color: Colors.white)),
+                                  // Save the order
+
+                                  // Update the user document to clear the cart
+                                  final userRef = FirebaseFirestore.instance
+                                      .collection('users')
+                                      .doc(myUser.id);
+                                  await userRef.update({'cartProducts': []});
+
+                                  // Optionally, notify the user that the order was successful
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content:
+                                            Text('Order placed successfully!')),
+                                  );
+
+                                  // Get current orders and cart products
+
+                                  // Place order
+                                  // Clear cart
+                                  /*context.read<MyUserBloc>().add(
+                                            MyUserUpdateCartProductsEvent(
+                                                cartProducts: []));*/
+                                  await Future.delayed(
+                                      const Duration(seconds: 2));
+                                  setState(() {
+                                    isLoading = false;
+                                  });
+                                },
+                                child: isLoading
+                                    ? const SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: CircularProgressIndicator(
+                                            color: Colors.white),
+                                      )
+                                    : const Text('COMPLETE ORDER',
+                                        style: TextStyle(color: Colors.white)),
+                              ),
                             ),
                           ),
                         ],

@@ -54,10 +54,14 @@ class BabyAccessories extends StatelessWidget {
                                 product.category == 'Accessories' &&
                                 product.ageGroup == "Children")
                             .toList();
-                        return SingleChildScrollView(
+                        return RefreshIndicator(
+                          onRefresh: () async {
+                            context.read<GetProductBloc>().add(GetProduct());
+                          },
                           child: MediaQuery.of(context).size.width < 900
                               ? GridView.builder(
                                   shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisSpacing: 10,
@@ -71,6 +75,7 @@ class BabyAccessories extends StatelessWidget {
                                 )
                               : GridView.builder(
                                   shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisSpacing: 20,

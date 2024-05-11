@@ -58,6 +58,7 @@ class BabyShoes extends StatelessWidget {
                           child: MediaQuery.of(context).size.width < 900
                               ? GridView.builder(
                                   shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisSpacing: 10,
@@ -71,6 +72,7 @@ class BabyShoes extends StatelessWidget {
                                 )
                               : GridView.builder(
                                   shrinkWrap: true,
+                                  physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                           crossAxisSpacing: 20,

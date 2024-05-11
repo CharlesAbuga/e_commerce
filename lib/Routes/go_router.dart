@@ -8,16 +8,19 @@ import 'package:ecommerce_app/screens/baby_accessories.dart';
 import 'package:ecommerce_app/screens/baby_clothes.dart';
 import 'package:ecommerce_app/screens/baby_shoes.dart';
 import 'package:ecommerce_app/screens/checkout.dart';
+import 'package:ecommerce_app/screens/children.dart';
 import 'package:ecommerce_app/screens/home_page.dart';
 import 'package:ecommerce_app/screens/men.dart';
 import 'package:ecommerce_app/screens/mens_accessories.dart';
 import 'package:ecommerce_app/screens/mens_clothes.dart';
 import 'package:ecommerce_app/screens/mens_shoes.dart';
 import 'package:ecommerce_app/screens/my_cart.dart';
+import 'package:ecommerce_app/screens/order_screen.dart';
 import 'package:ecommerce_app/screens/product_details.dart';
 import 'package:ecommerce_app/screens/saved_products.dart';
 import 'package:ecommerce_app/screens/search.dart';
 import 'package:ecommerce_app/screens/user_profile.dart';
+import 'package:ecommerce_app/screens/womens.dart';
 import 'package:ecommerce_app/screens/womens_accessories.dart';
 import 'package:ecommerce_app/screens/womens_clothes.dart';
 import 'package:ecommerce_app/screens/womens_shoes.dart';
@@ -53,13 +56,31 @@ class AppRouter {
         },
       ),
       GoRoute(
+        path: '/womens',
+        name: RouteConstants.womens,
+        pageBuilder: (context, state) {
+          return const MaterialPage(child: Women());
+        },
+      ),
+      GoRoute(
+        path: '/children',
+        name: RouteConstants.children,
+        pageBuilder: (context, state) {
+          return const MaterialPage(child: Children());
+        },
+      ),
+      GoRoute(
         name: RouteConstants.savedProducts,
         path: '/savedProducts',
         pageBuilder: (context, state) {
-          // myUserBloc.add(GetMyUser(
-          //     myUserId: context.read<AuthenticationBloc>().state.user!.uid));
-          // Replace `AdminScreen` with the actual screen widget for the admin page
           return const MaterialPage(child: SavedProducts());
+        },
+      ),
+      GoRoute(
+        name: RouteConstants.orders,
+        path: '/orders',
+        pageBuilder: (context, state) {
+          return MaterialPage(child: OrderScreen());
         },
       ),
       GoRoute(

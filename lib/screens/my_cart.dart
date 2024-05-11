@@ -67,7 +67,7 @@ class _MyCartState extends State<MyCart> {
 
                       return const Center(child: CircularProgressIndicator());
                     } else if (state.status == MyUserStatus.success) {
-                      if (MediaQuery.of(context).size.width > 800) {
+                      if (MediaQuery.of(context).size.width > 1350) {
                         return Padding(
                           padding:
                               const EdgeInsets.symmetric(horizontal: 200.0),
@@ -78,309 +78,323 @@ class _MyCartState extends State<MyCart> {
                                 child: Padding(
                                   padding: const EdgeInsets.only(
                                       top: 20, left: 100.0, right: 50),
-                                  child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      SingleChildScrollView(
-                                        physics: const BouncingScrollPhysics(),
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            StreamBuilder<DocumentSnapshot>(
-                                                stream: FirebaseFirestore
-                                                    .instance
-                                                    .collection('users')
-                                                    .doc(context
-                                                        .read<
-                                                            AuthenticationBloc>()
-                                                        .state
-                                                        .user!
-                                                        .uid)
-                                                    .snapshots(),
-                                                builder: (context, snapshot) {
-                                                  if (snapshot.hasError) {
-                                                    return const Text(
-                                                        'Something went wrong');
-                                                  } else if (snapshot
-                                                          .connectionState ==
-                                                      ConnectionState.waiting) {
-                                                    return const Center(
-                                                      child:
-                                                          CircularProgressIndicator(),
-                                                    );
-                                                  }
+                                  child: SingleChildScrollView(
+                                    physics: const BouncingScrollPhysics(),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: [
+                                        StreamBuilder<DocumentSnapshot>(
+                                            stream: FirebaseFirestore.instance
+                                                .collection('users')
+                                                .doc(context
+                                                    .read<AuthenticationBloc>()
+                                                    .state
+                                                    .user!
+                                                    .uid)
+                                                .snapshots(),
+                                            builder: (context, snapshot) {
+                                              if (snapshot.hasError) {
+                                                return const Text(
+                                                    'Something went wrong');
+                                              } else if (snapshot
+                                                      .connectionState ==
+                                                  ConnectionState.waiting) {
+                                                return const Center(
+                                                  child:
+                                                      CircularProgressIndicator(),
+                                                );
+                                              }
 
-                                                  final cartProducts =
-                                                      (snapshot.data!.data()
-                                                                  as Map<String,
-                                                                      dynamic>)[
-                                                              'cartProducts']
-                                                          as List<dynamic>?;
+                                              final cartProducts =
+                                                  (snapshot.data!.data() as Map<
+                                                              String, dynamic>)[
+                                                          'cartProducts']
+                                                      as List<dynamic>?;
 
-                                                  return ListView.builder(
-                                                    shrinkWrap: true,
-                                                    primary: false,
-                                                    physics:
-                                                        const NeverScrollableScrollPhysics(),
-                                                    itemCount:
-                                                        cartProducts!.length,
-                                                    itemBuilder:
-                                                        (context, index) {
-                                                      final cartproduct =
-                                                          cartProducts[index];
-                                                      return Container(
-                                                        height: 130,
-                                                        margin: const EdgeInsets
-                                                            .symmetric(
-                                                            horizontal: 10,
-                                                            vertical: 5),
-                                                        child: Card(
-                                                          surfaceTintColor:
-                                                              Colors
-                                                                  .transparent,
-                                                          color:
-                                                              Colors.grey[200],
-                                                          shape:
-                                                              RoundedRectangleBorder(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        10),
-                                                          ),
-                                                          child: Row(
-                                                            children: [
-                                                              Padding(
-                                                                padding:
-                                                                    const EdgeInsets
-                                                                        .all(
-                                                                        8.0),
-                                                                child:
-                                                                    ClipRRect(
-                                                                  borderRadius:
-                                                                      BorderRadius
-                                                                          .circular(
-                                                                              10),
-                                                                  child: Image
-                                                                      .network(
-                                                                    cartproduct[
-                                                                        'imageUrl'][0],
-                                                                    fit: BoxFit
-                                                                        .cover,
-                                                                    width: 170,
-                                                                    height: 100,
-                                                                  ),
-                                                                ),
+                                              return ListView.builder(
+                                                shrinkWrap: true,
+                                                primary: false,
+                                                physics:
+                                                    const NeverScrollableScrollPhysics(),
+                                                itemCount: cartProducts!.length,
+                                                itemBuilder: (context, index) {
+                                                  final cartproduct =
+                                                      cartProducts[index];
+                                                  return Container(
+                                                    height: 130,
+                                                    margin: const EdgeInsets
+                                                        .symmetric(
+                                                        horizontal: 10,
+                                                        vertical: 5),
+                                                    child: Card(
+                                                      surfaceTintColor:
+                                                          Colors.transparent,
+                                                      color: Colors.grey[200],
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(10),
+                                                      ),
+                                                      child: Row(
+                                                        children: [
+                                                          Padding(
+                                                            padding:
+                                                                const EdgeInsets
+                                                                    .all(8.0),
+                                                            child: ClipRRect(
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          10),
+                                                              child:
+                                                                  Image.network(
+                                                                cartproduct[
+                                                                    'imageUrl'][0],
+                                                                fit: BoxFit
+                                                                    .cover,
+                                                                width: 170,
+                                                                height: 100,
                                                               ),
-                                                              SizedBox(
-                                                                width: 350,
-                                                                child: Padding(
-                                                                  padding:
-                                                                      const EdgeInsets
-                                                                          .all(
-                                                                          8.0),
-                                                                  child: Column(
-                                                                    crossAxisAlignment:
-                                                                        CrossAxisAlignment
-                                                                            .start,
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            width: 350,
+                                                            child: Padding(
+                                                              padding:
+                                                                  const EdgeInsets
+                                                                      .all(8.0),
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Padding(
+                                                                    padding: const EdgeInsets
+                                                                        .only(
+                                                                        left:
+                                                                            8.0),
+                                                                    child: Text(
+                                                                        cartproduct[
+                                                                            'name']),
+                                                                  ),
+                                                                  Row(
                                                                     children: [
                                                                       Padding(
                                                                         padding: const EdgeInsets
                                                                             .only(
                                                                             left:
                                                                                 8.0),
-                                                                        child: Text(
-                                                                            cartproduct['name']),
+                                                                        child:
+                                                                            Text(
+                                                                          'Ksh ${(cartproduct['price'] * cartproduct['quantity']).toString()}',
+                                                                          style:
+                                                                              const TextStyle(
+                                                                            fontWeight:
+                                                                                FontWeight.bold,
+                                                                          ),
+                                                                        ),
                                                                       ),
-                                                                      Row(
+                                                                    ],
+                                                                  ),
+                                                                  BlocBuilder<
+                                                                      UpdateUserInfoBloc,
+                                                                      UpdateUserInfoState>(
+                                                                    builder:
+                                                                        (context,
+                                                                            state) {
+                                                                      return Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.start,
                                                                         children: [
-                                                                          Padding(
-                                                                            padding:
-                                                                                const EdgeInsets.only(left: 8.0),
+                                                                          Transform
+                                                                              .scale(
+                                                                            scale:
+                                                                                0.7,
                                                                             child:
-                                                                                Text(
-                                                                              'Ksh ${(cartproduct['price'] * cartproduct['quantity']).toString()}',
-                                                                              style: const TextStyle(
-                                                                                fontWeight: FontWeight.bold,
-                                                                              ),
+                                                                                IconButton.outlined(
+                                                                              icon: const Icon(CupertinoIcons.minus),
+                                                                              onPressed: () async {
+                                                                                if (cartproduct['quantity'] > 1) {
+                                                                                  // Decrease quantity
+                                                                                  cartproduct['quantity'] -= 1;
+
+                                                                                  final userDoc = FirebaseFirestore.instance.collection('users').doc(context.read<AuthenticationBloc>().state.user!.uid);
+                                                                                  final userSnapshot = await userDoc.get();
+                                                                                  final userCartProducts = (userSnapshot.data() as Map<String, dynamic>)['cartProducts'] as List<dynamic>;
+
+                                                                                  final existingProductIndex = userCartProducts.indexWhere((product) => product['productId'] == cartproduct['productId']);
+                                                                                  if (existingProductIndex != -1) {
+                                                                                    // Update the quantity of the existing product
+                                                                                    userCartProducts[existingProductIndex]['quantity'] = cartproduct['quantity'];
+                                                                                  }
+
+                                                                                  await userDoc.update({
+                                                                                    'cartProducts': userCartProducts,
+                                                                                  });
+                                                                                }
+                                                                                // Increase quantity
+                                                                              },
+                                                                            ),
+                                                                          ),
+                                                                          StreamBuilder<DocumentSnapshot>(
+                                                                              stream: FirebaseFirestore.instance.collection('users').doc(context.read<AuthenticationBloc>().state.user!.uid).snapshots(),
+                                                                              builder: (context, snapshot) {
+                                                                                if (snapshot.hasError) {
+                                                                                  log(snapshot.error.toString());
+                                                                                } else if (snapshot.hasData) {
+                                                                                  final cartProducts = (snapshot.data!.data() as Map<String, dynamic>)['cartProducts'] as List<dynamic>?;
+                                                                                  return Text(cartProducts![index]['quantity'].toString());
+                                                                                } else {
+                                                                                  return const SizedBox();
+                                                                                }
+                                                                                return const SizedBox();
+                                                                              }),
+                                                                          Transform
+                                                                              .scale(
+                                                                            scale:
+                                                                                0.7,
+                                                                            child:
+                                                                                IconButton.outlined(
+                                                                              icon: const Icon(CupertinoIcons.add),
+                                                                              onPressed: () async {
+                                                                                // Get the product to be added
+                                                                                final cartproduct = cartProducts[index];
+                                                                                cartproduct['quantity'] = (cartproduct['quantity'] ?? 0) + 1;
+
+                                                                                final userDoc = FirebaseFirestore.instance.collection('users').doc(context.read<AuthenticationBloc>().state.user!.uid);
+                                                                                final userSnapshot = await userDoc.get();
+                                                                                final userCartProducts = (userSnapshot.data() as Map<String, dynamic>)['cartProducts'] as List<dynamic>;
+
+                                                                                final existingProductIndex = userCartProducts.indexWhere((product) => product['productId'] == cartproduct['productId']);
+                                                                                if (existingProductIndex != -1) {
+                                                                                  // If the product exists, update its quantity
+                                                                                  userCartProducts[existingProductIndex]['quantity'] = cartproduct['quantity'];
+                                                                                } else {
+                                                                                  // If the product doesn't exist, add it to the cart
+                                                                                  userCartProducts.add(cartproduct);
+                                                                                }
+
+                                                                                await userDoc.update({
+                                                                                  'cartProducts': userCartProducts,
+                                                                                });
+                                                                              },
                                                                             ),
                                                                           ),
                                                                         ],
-                                                                      ),
-                                                                      BlocBuilder<
-                                                                          UpdateUserInfoBloc,
-                                                                          UpdateUserInfoState>(
+                                                                      );
+                                                                    },
+                                                                  )
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          ),
+                                                          BlocBuilder<
+                                                              UpdateUserInfoBloc,
+                                                              UpdateUserInfoState>(
+                                                            builder: (context,
+                                                                state) {
+                                                              return StreamBuilder<
+                                                                      DocumentSnapshot>(
+                                                                  stream: FirebaseFirestore
+                                                                      .instance
+                                                                      .collection(
+                                                                          'users')
+                                                                      .doc(context
+                                                                          .read<
+                                                                              AuthenticationBloc>()
+                                                                          .state
+                                                                          .user!
+                                                                          .uid)
+                                                                      .snapshots(),
+                                                                  builder: (context,
+                                                                      snapshot) {
+                                                                    if (snapshot
+                                                                        .hasError) {
+                                                                      return const Text(
+                                                                          'Something went wrong');
+                                                                    } else if (snapshot
+                                                                            .connectionState ==
+                                                                        ConnectionState
+                                                                            .waiting) {
+                                                                      return const Center(
+                                                                        child:
+                                                                            CircularProgressIndicator(),
+                                                                      );
+                                                                    }
+                                                                    final cartProducts = (snapshot
+                                                                            .data!
+                                                                            .data()
+                                                                        as Map<
+                                                                            String,
+                                                                            dynamic>)['cartProducts'] as List<
+                                                                        dynamic>?;
+                                                                    final cartProduct =
+                                                                        cartProducts![
+                                                                            index];
+                                                                    return StreamBuilder<
+                                                                            MyUser>(
+                                                                        stream: context.read<FirebaseUserRepository>().userStream(context
+                                                                            .read<
+                                                                                AuthenticationBloc>()
+                                                                            .state
+                                                                            .user!
+                                                                            .uid),
                                                                         builder:
                                                                             (context,
-                                                                                state) {
-                                                                          return Row(
-                                                                            mainAxisAlignment:
-                                                                                MainAxisAlignment.start,
-                                                                            children: [
-                                                                              Transform.scale(
-                                                                                scale: 0.7,
-                                                                                child: IconButton.outlined(
-                                                                                  icon: const Icon(CupertinoIcons.minus),
-                                                                                  onPressed: () async {
-                                                                                    if (cartproduct['quantity'] > 1) {
-                                                                                      // Decrease quantity
-                                                                                      cartproduct['quantity'] -= 1;
+                                                                                snapshot) {
+                                                                          if (snapshot
+                                                                              .hasError) {
+                                                                            return const Text('Something went wrong');
+                                                                          } else if (snapshot.connectionState ==
+                                                                              ConnectionState.waiting) {
+                                                                            return const Center(
+                                                                              child: CircularProgressIndicator(),
+                                                                            );
+                                                                          }
+                                                                          final user =
+                                                                              snapshot.data;
+                                                                          return IconButton
+                                                                              .filled(
+                                                                            tooltip:
+                                                                                'Delete',
+                                                                            hoverColor:
+                                                                                Colors.red,
+                                                                            icon:
+                                                                                const Icon(Icons.delete),
+                                                                            color:
+                                                                                Colors.white,
+                                                                            onPressed:
+                                                                                () {
+                                                                              String productId = cartProduct['productId'];
+                                                                              context.read<UpdateUserInfoBloc>().add(
+                                                                                    DeleteCartProducts(
+                                                                                      user!.copyWith(
+                                                                                        cartProducts: user.cartProducts!..removeAt(index),
+                                                                                      ),
+                                                                                      productId,
+                                                                                    ),
+                                                                                  );
+                                                                              setState(() {});
 
-                                                                                      final userDoc = FirebaseFirestore.instance.collection('users').doc(context.read<AuthenticationBloc>().state.user!.uid);
-                                                                                      final userSnapshot = await userDoc.get();
-                                                                                      final userCartProducts = (userSnapshot.data() as Map<String, dynamic>)['cartProducts'] as List<dynamic>;
-
-                                                                                      final existingProductIndex = userCartProducts.indexWhere((product) => product['productId'] == cartproduct['productId']);
-                                                                                      if (existingProductIndex != -1) {
-                                                                                        // Update the quantity of the existing product
-                                                                                        userCartProducts[existingProductIndex]['quantity'] = cartproduct['quantity'];
-                                                                                      }
-
-                                                                                      await userDoc.update({
-                                                                                        'cartProducts': userCartProducts,
-                                                                                      });
-                                                                                    }
-                                                                                    // Increase quantity
-                                                                                  },
-                                                                                ),
-                                                                              ),
-                                                                              StreamBuilder<DocumentSnapshot>(
-                                                                                  stream: FirebaseFirestore.instance.collection('users').doc(context.read<AuthenticationBloc>().state.user!.uid).snapshots(),
-                                                                                  builder: (context, snapshot) {
-                                                                                    if (snapshot.hasError) {
-                                                                                      log(snapshot.error.toString());
-                                                                                    } else if (snapshot.hasData) {
-                                                                                      final cartProducts = (snapshot.data!.data() as Map<String, dynamic>)['cartProducts'] as List<dynamic>?;
-                                                                                      return Text(cartProducts![index]['quantity'].toString());
-                                                                                    } else {
-                                                                                      return const SizedBox();
-                                                                                    }
-                                                                                    return const SizedBox();
-                                                                                  }),
-                                                                              Transform.scale(
-                                                                                scale: 0.7,
-                                                                                child: IconButton.outlined(
-                                                                                  icon: const Icon(CupertinoIcons.add),
-                                                                                  onPressed: () async {
-                                                                                    // Get the product to be added
-                                                                                    final cartproduct = cartProducts[index];
-                                                                                    cartproduct['quantity'] = (cartproduct['quantity'] ?? 0) + 1;
-
-                                                                                    final userDoc = FirebaseFirestore.instance.collection('users').doc(context.read<AuthenticationBloc>().state.user!.uid);
-                                                                                    final userSnapshot = await userDoc.get();
-                                                                                    final userCartProducts = (userSnapshot.data() as Map<String, dynamic>)['cartProducts'] as List<dynamic>;
-
-                                                                                    final existingProductIndex = userCartProducts.indexWhere((product) => product['productId'] == cartproduct['productId']);
-                                                                                    if (existingProductIndex != -1) {
-                                                                                      // If the product exists, update its quantity
-                                                                                      userCartProducts[existingProductIndex]['quantity'] = cartproduct['quantity'];
-                                                                                    } else {
-                                                                                      // If the product doesn't exist, add it to the cart
-                                                                                      userCartProducts.add(cartproduct);
-                                                                                    }
-
-                                                                                    await userDoc.update({
-                                                                                      'cartProducts': userCartProducts,
-                                                                                    });
-                                                                                  },
-                                                                                ),
-                                                                              ),
-                                                                            ],
+                                                                              // Remove product from cart
+                                                                            },
                                                                           );
-                                                                        },
-                                                                      )
-                                                                    ],
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              BlocBuilder<
-                                                                  UpdateUserInfoBloc,
-                                                                  UpdateUserInfoState>(
-                                                                builder:
-                                                                    (context,
-                                                                        state) {
-                                                                  return StreamBuilder<
-                                                                          DocumentSnapshot>(
-                                                                      stream: FirebaseFirestore
-                                                                          .instance
-                                                                          .collection(
-                                                                              'users')
-                                                                          .doc(context
-                                                                              .read<
-                                                                                  AuthenticationBloc>()
-                                                                              .state
-                                                                              .user!
-                                                                              .uid)
-                                                                          .snapshots(),
-                                                                      builder:
-                                                                          (context,
-                                                                              snapshot) {
-                                                                        if (snapshot
-                                                                            .hasError) {
-                                                                          return const Text(
-                                                                              'Something went wrong');
-                                                                        } else if (snapshot.connectionState ==
-                                                                            ConnectionState.waiting) {
-                                                                          return const Center(
-                                                                            child:
-                                                                                CircularProgressIndicator(),
-                                                                          );
-                                                                        }
-                                                                        final cartProducts = (snapshot.data!.data()
-                                                                            as Map<String,
-                                                                                dynamic>)['cartProducts'] as List<
-                                                                            dynamic>?;
-                                                                        final cartProduct =
-                                                                            cartProducts![index];
-                                                                        return StreamBuilder<
-                                                                                MyUser>(
-                                                                            stream:
-                                                                                context.read<FirebaseUserRepository>().userStream(context.read<AuthenticationBloc>().state.user!.uid),
-                                                                            builder: (context, snapshot) {
-                                                                              if (snapshot.hasError) {
-                                                                                return const Text('Something went wrong');
-                                                                              } else if (snapshot.connectionState == ConnectionState.waiting) {
-                                                                                return const Center(
-                                                                                  child: CircularProgressIndicator(),
-                                                                                );
-                                                                              }
-                                                                              final user = snapshot.data;
-                                                                              return IconButton.filled(
-                                                                                tooltip: 'Delete',
-                                                                                hoverColor: Colors.red,
-                                                                                icon: const Icon(Icons.delete),
-                                                                                color: Colors.white,
-                                                                                onPressed: () {
-                                                                                  String productId = cartProduct['productId'];
-                                                                                  context.read<UpdateUserInfoBloc>().add(
-                                                                                        DeleteCartProducts(
-                                                                                          user!.copyWith(
-                                                                                            cartProducts: user.cartProducts!..removeAt(index),
-                                                                                          ),
-                                                                                          productId,
-                                                                                        ),
-                                                                                      );
-                                                                                  setState(() {});
-
-                                                                                  // Remove product from cart
-                                                                                },
-                                                                              );
-                                                                            });
-                                                                      });
-                                                                },
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      );
-                                                    },
+                                                                        });
+                                                                  });
+                                                            },
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
                                                   );
-                                                }),
-                                            const SizedBox(height: 20),
-                                          ],
-                                        ),
-                                      ),
-                                    ],
+                                                },
+                                              );
+                                            }),
+                                        const SizedBox(height: 20),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),
@@ -571,7 +585,7 @@ class _MyCartState extends State<MyCart> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                width: 220,
+                                                width: 130,
                                                 child: Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),

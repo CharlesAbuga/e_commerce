@@ -28,7 +28,7 @@ class DrawerWidget extends StatelessWidget {
           child: BlocBuilder<MyUserBloc, MyUserState>(
             builder: (context, state) {
               if (state.status == MyUserStatus.loading) {
-                return const CircularProgressIndicator();
+                return const Center(child: const CircularProgressIndicator());
               } else if (state.status == MyUserStatus.success) {
                 return Drawer(
                     surfaceTintColor: Colors.white,
@@ -398,9 +398,11 @@ class DrawerWidget extends StatelessWidget {
                             ),
                           ),
                         ),
-                        const SizedBox(height: 15),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.05),
                         const Divider(),
-                        const SizedBox(height: 145),
+                        SizedBox(
+                            height: MediaQuery.of(context).size.height * 0.05),
                         Theme(
                           data: ThemeData(
                             highlightColor: Colors.transparent,
@@ -410,6 +412,7 @@ class DrawerWidget extends StatelessWidget {
                             padding: const EdgeInsets.only(left: 8, right: 8.0),
                             child: ElevatedButton(
                               style: ElevatedButton.styleFrom(
+                                surfaceTintColor: Colors.transparent,
                                 backgroundColor: Colors.grey[100],
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(10),
@@ -419,9 +422,48 @@ class DrawerWidget extends StatelessWidget {
                                 GoRouter.of(context)
                                     .goNamed(RouteConstants.savedProducts);
                               },
-                              child: const Text(
-                                'SAVED PRODUCTS',
-                                style: TextStyle(color: Colors.black),
+                              child: const ListTile(
+                                dense: true,
+                                leading: Icon(CupertinoIcons.heart_circle,
+                                    color: Colors.black),
+                                title: Text(
+                                  'SAVED PRODUCTS',
+                                  style: TextStyle(color: Colors.black),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        Theme(
+                          data: ThemeData(
+                            highlightColor: Colors.transparent,
+                            splashColor: Colors.transparent,
+                          ),
+                          child: Padding(
+                            padding: const EdgeInsets.only(left: 8, right: 8.0),
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                surfaceTintColor: Colors.transparent,
+                                backgroundColor: Colors.grey[100],
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              onPressed: () {
+                                GoRouter.of(context)
+                                    .goNamed(RouteConstants.orders);
+                              },
+                              child: const ListTile(
+                                dense: true,
+                                leading: Icon(
+                                  CupertinoIcons.cart_badge_plus,
+                                  color: Colors.black,
+                                ),
+                                title: Text(
+                                  'ORDERS',
+                                  style: TextStyle(color: Colors.black),
+                                ),
                               ),
                             ),
                           ),
@@ -442,9 +484,14 @@ class DrawerWidget extends StatelessWidget {
                                   .read<SignInBloc>()
                                   .add(const SignOutRequired());
                             },
-                            child: const Text(
-                              'LOG OUT',
-                              style: TextStyle(color: Colors.white),
+                            child: const ListTile(
+                              dense: true,
+                              leading: Icon(CupertinoIcons.left_chevron,
+                                  color: Colors.white),
+                              title: Text(
+                                'LOG OUT',
+                                style: TextStyle(color: Colors.white),
+                              ),
                             ),
                           ),
                         ),

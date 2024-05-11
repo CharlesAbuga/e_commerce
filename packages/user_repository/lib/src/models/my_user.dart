@@ -6,7 +6,7 @@ class MyUser extends Equatable {
   final String email;
   final String name;
   final String? addressLine1;
-  final String? addressLine2;
+  final String? streetAddress;
   final String? city;
   final String? postalCode;
   final String? profilePicture;
@@ -18,7 +18,7 @@ class MyUser extends Equatable {
     required this.email,
     required this.name,
     this.addressLine1,
-    this.addressLine2,
+    this.streetAddress,
     this.city,
     this.postalCode,
     this.profilePicture,
@@ -33,7 +33,7 @@ class MyUser extends Equatable {
     savedProducts: [],
     cartProducts: [],
     addressLine1: '',
-    addressLine2: '',
+    streetAddress: '',
     city: '',
     postalCode: '',
     profilePicture: '',
@@ -44,7 +44,7 @@ class MyUser extends Equatable {
     String? email,
     String? name,
     String? addressLine1,
-    String? addressLine2,
+    String? streetAddress,
     String? city,
     String? postalCode,
     String? profilePicture,
@@ -57,7 +57,7 @@ class MyUser extends Equatable {
       email: email ?? this.email,
       name: name ?? this.name,
       addressLine1: addressLine1 ?? this.addressLine1,
-      addressLine2: addressLine2 ?? this.addressLine2,
+      streetAddress: streetAddress ?? this.streetAddress,
       city: city ?? this.city,
       postalCode: postalCode ?? this.postalCode,
       profilePicture: profilePicture ?? this.profilePicture,
@@ -76,7 +76,7 @@ class MyUser extends Equatable {
       email: email,
       name: name,
       addressLine1: addressLine1,
-      addressLine2: addressLine2,
+      streetAddress: streetAddress,
       city: city,
       postalCode: postalCode,
       profilePicture: profilePicture,
@@ -91,7 +91,7 @@ class MyUser extends Equatable {
       email: entity.email,
       name: entity.name,
       addressLine1: entity.addressLine1,
-      addressLine2: entity.addressLine2,
+      streetAddress: entity.streetAddress,
       city: entity.city,
       postalCode: entity.postalCode,
       profilePicture: entity.profilePicture,
@@ -107,7 +107,7 @@ class MyUser extends Equatable {
         email,
         name,
         addressLine1,
-        addressLine2,
+        streetAddress,
         city,
         postalCode,
         profilePicture,
