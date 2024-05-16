@@ -1,16 +1,25 @@
-# ecommerce_app
+# Leon Classy Collection
 
-A new Flutter project.
+## An ecommerce webapp made with flutter
 
-## Getting Started
+This webapp made with flutter is an ecommerce app for LeonClassyCollections to help them reaching a wide range of customers through online shopping. With its user friendly nature its easy for users to shop and have a great online shopping experience.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+## Installation
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+You can install the project through the following steps after cloning the repository
+ - For a seemless experience download the following extensions: Bloc and Dart
+ - Then run the following command, since its a webapp it only works on web hence with chrome input the following command in the commandline
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+```bash
+flutter run -d chrome.
+```
+
+## Tech Stack
+- flutter
+- Bloc State Management
+- Firebase as Backend as a service
+
+## Demo
+
+Below is a demo of how to navigate and buy products from the homepage of the webapp.

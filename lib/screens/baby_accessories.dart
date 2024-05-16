@@ -56,7 +56,9 @@ class BabyAccessories extends StatelessWidget {
                             .toList();
                         return RefreshIndicator(
                           onRefresh: () async {
-                            context.read<GetProductBloc>().add(GetProduct());
+                            context
+                                .read<GetProductBloc>()
+                                .add(const GetProduct());
                           },
                           child: MediaQuery.of(context).size.width < 900
                               ? GridView.builder(

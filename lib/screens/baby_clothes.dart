@@ -54,36 +54,45 @@ class BabyClothes extends StatelessWidget {
                                 product.category == 'Clothes' &&
                                 product.ageGroup == "Children")
                             .toList();
-                        return SingleChildScrollView(
-                          child: MediaQuery.of(context).size.width < 900
-                              ? GridView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisSpacing: 10,
-                                          mainAxisExtent: 320,
-                                          crossAxisCount: 2),
-                                  itemCount: products.length,
-                                  itemBuilder: (context, index) {
-                                    final product = products[index];
-                                    return ProductCard(product: product);
-                                  },
-                                )
-                              : GridView.builder(
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                  gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
-                                          crossAxisSpacing: 20,
-                                          mainAxisExtent: 320,
-                                          crossAxisCount: 6),
-                                  itemCount: products.length,
-                                  itemBuilder: (context, index) {
-                                    final product = products[index];
-                                    return ProductCard(product: product);
-                                  },
-                                ),
+                        return RefreshIndicator(
+                          onRefresh: () async {
+                            context
+                                .read<GetProductBloc>()
+                                .add(const GetProduct());
+                          },
+                          child: SingleChildScrollView(
+                            child: MediaQuery.of(context).size.width < 900
+                                ? GridView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisSpacing: 10,
+                                            mainAxisExtent: 320,
+                                            crossAxisCount: 2),
+                                    itemCount: products.length,
+                                    itemBuilder: (context, index) {
+                                      final product = products[index];
+                                      return ProductCard(product: product);
+                                    },
+                                  )
+                                : GridView.builder(
+                                    shrinkWrap: true,
+                                    physics:
+                                        const NeverScrollableScrollPhysics(),
+                                    gridDelegate:
+                                        const SliverGridDelegateWithFixedCrossAxisCount(
+                                            crossAxisSpacing: 20,
+                                            mainAxisExtent: 320,
+                                            crossAxisCount: 6),
+                                    itemCount: products.length,
+                                    itemBuilder: (context, index) {
+                                      final product = products[index];
+                                      return ProductCard(product: product);
+                                    },
+                                  ),
+                          ),
                         );
                       }
                       return const SizedBox();

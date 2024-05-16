@@ -1,6 +1,7 @@
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:ecommerce_app/Routes/router_constants.dart';
 import 'package:ecommerce_app/bloc/authentication/authentication_bloc.dart';
 import 'package:ecommerce_app/bloc/my_user/my_user_bloc.dart';
 import 'package:ecommerce_app/widgets/appbar.dart';
@@ -9,6 +10,7 @@ import 'package:ecommerce_app/widgets/drawer_widget.dart';
 import 'package:ecommerce_app/widgets/hover_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:user_repository/user_repository.dart';
 
 class CheckOut extends StatefulWidget {
@@ -159,7 +161,10 @@ class _CheckOutState extends State<CheckOut> {
                                 Text('City: ${myUser.city}'),
                                 const SizedBox(height: 8),
                                 HoverButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    GoRouter.of(context)
+                                        .goNamed(RouteConstants.userProfile);
+                                  },
                                   buttonText: 'Edit Details',
                                 )
                               ],

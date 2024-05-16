@@ -692,26 +692,52 @@ class _FooterState extends State<Footer> {
                     ],
                   )
                 : const SizedBox(
-                    height: 10,
+                    height: 1,
                   ),
             const SizedBox(
-              height: 10,
+              height: 5,
             ),
             const Divider(
               color: Colors.black,
               thickness: 0.2,
             ),
-            const Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-              Text('Contact Us:  ',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('0712345678'),
-              SizedBox(
-                width: 10,
-              ),
-              Text('Email Us:  ',
-                  style: TextStyle(fontWeight: FontWeight.bold)),
-              Text('godfreycharles@gmail.com')
-            ]),
+            MediaQuery.of(context).size.width > 1100
+                ? const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                        Text('Contact Us:  ',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text('0712345678'),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text('Email Us:  ',
+                            style: TextStyle(fontWeight: FontWeight.bold)),
+                        Text('godfreycharles@gmail.com')
+                      ])
+                : const Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Contact Us:  ',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('0712345678'),
+                          ],
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('Email Us:  ',
+                                style: TextStyle(fontWeight: FontWeight.bold)),
+                            Text('godfreycharles@gmail.com')
+                          ],
+                        ),
+                      ]),
             const SizedBox(
               height: 2,
             ),
