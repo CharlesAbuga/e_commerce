@@ -34,7 +34,7 @@ flutter run -d chrome.
 
 ## Screenshots
 
-## Below is a few pictures of how the Web App looks like
+### Below is a few pictures of how the Web App looks like
 
 ![SignInScreen](assets/screenshots_readme/sign_up_screenshot.png) The Sign Up page of the Webapp
 ![HomeScreen](assets/screenshots_readme/homepage_screenshot.png) The homescreen displaying the products as well as Carousel.
@@ -43,3 +43,9 @@ flutter run -d chrome.
 
 ## Preview
 Below is the link to the application itself [LeonClassyCollection](https://leonclassycollection.netlify.app/)
+
+## Features soon to be implemented
+The following features are yet to be implemented so as to enhance the user experience :
+* Sign In with google option in the login screen to allow multiples ways for users to log in.
+* Newsletter Functionality to allow users to get updates on new products available through email.
+
